@@ -1,0 +1,22 @@
+{
+  "name": "project_4",
+  "version": "1.0.0",
+  "description": "inhouse project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "khamar shaikh",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "morgan": "^1.7.0",
+    "mysql": "^2.13.0",
+    "path": "^0.12.7",
+    "time": "^0.11.4",
+    "url": "^0.11.0"
+  }
+}
