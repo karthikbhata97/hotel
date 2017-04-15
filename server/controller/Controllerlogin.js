@@ -7,8 +7,8 @@ var connection = mysql.createConnection({
 });
 module.exports.login = function(req, res) {
    console.log("entered controller");
-   connection.query('SELECT * FROM login WHERE username = ? ', [ userid ], function (error, result, fields) {
-      if(error) res.send({success: false, message: "INVALID credentials!"})
+   connection.query('SELECT * FROM login WHERE username = ? ', [ username ], function (error, result, fields) {
+      if(error) res.send({success: false, message: "ENTER THE FIELDS"})
       else {
             if(result[0].password == password){
             console.log("user found " + result[0].password + result[0].username);
