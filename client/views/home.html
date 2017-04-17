@@ -1,0 +1,22 @@
+<div>
+  {{main}}
+
+  <form ng-submit="add_record(newrecord)">
+    <label>Name: </label>
+    <input type="text" ng-model="newrecord.student_name" />
+    <br />
+    <label>USN: </label>
+    <input type="text" ng-model="newrecord.usn" />
+    <br />
+    <label>semester: </label>
+    <input type="text" ng-model="newrecord.semester"/>
+    <br />
+    <label>Activity: </label>
+    <input type="text" ng-model="newrecord.activities" />
+    <br />
+    <label>Level: </label>
+    <input type="text" ng-model="newrecord.level" />
+    <br />
+    <button type="submit" id="addrecord">Add</button>
+  </form>
+</div>
