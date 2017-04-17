@@ -2,7 +2,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : 'honor4c',
+  password : 'kshaikh',
   database : 'INHOUSE'
 });
 
@@ -13,10 +13,12 @@ module.exports.addrecord = function(req, res) {
     student_name: req.body.student_name,
     usn : req.body.usn,
     semester : req.body.semester,
+    date :req.body.date,
     activities : req.body.activities,
     level : req.body.level
+
   }
-  connection.query('INSERT INTO records SET ?', info, function(err,result){
+  connection.query('INSERT INTO info SET ?', info, function(err,result){
    if(err) {
      console.log(err);
      res.send({success: false});
