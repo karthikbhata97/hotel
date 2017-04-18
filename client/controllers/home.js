@@ -1,13 +1,13 @@
 var app = angular.module("myApp");
 
-app.controller("homeController", function($scope, $http,$resource,$route) {
+app.controller("homeController", function($scope, $http, $resource, $route) {
   $scope.main = "Home"
 
-  	var info=$resource('/api/userfeed');
+  var info=$resource('/api/userfeed');
 
-    info.query(function(result){
-      $scope.feed = result;
-    })
+  info.query(function(result){
+    $scope.feed = result;
+  })
 
   $scope.add_record = function(record) {
     $http({
@@ -16,16 +16,12 @@ app.controller("homeController", function($scope, $http,$resource,$route) {
       data: record
     }).then(function(data) {
       if(data.data.success) {
+        $scope.newrecord = {}
         alert("success")
-
-
       }
       else {
         alert("Failed")
       }
     }, function(err){});
   }
-
-
-
 })

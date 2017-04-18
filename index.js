@@ -1,18 +1,11 @@
-  var mysql = require('mysql'),
-    express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    morgan = require('morgan'),
-    Controllerlogin = require('./server/controllers/Controllerlogin'),
-    Controllerinfo = require('./server/controllers/Controllerinfo');
+var mysql = require('mysql'),
+  express = require('express'),
+  app = express(),
+  bodyParser = require('body-parser'),
+  morgan = require('morgan'),
+  Controllerlogin = require('./server/controllers/Controllerlogin'),
+  Controllerinfo = require('./server/controllers/Controllerinfo');
 
-
-    var connection = mysql.createConnection({
-      host     : '127.0.0.1',
-      user     : 'root',
-      password : 'kshaikh',
-      database : 'INHOUSE'
-    });
 
 var server=app.listen(3000,function(){
   console.log("running at port 3000");
@@ -29,15 +22,6 @@ app.get('/api/userfeed', function(req, res) {
   Controllerinfo.feed(req, res, callback);
 });
 
-
-/*
-connection.query('SELECT * FROM info',function(err,result){
-if(err) console.log(err);
-  console.log(result);
-  console.log("khamar");
-
-});
-*/
 app.post('/login', Controllerlogin.login);
 app.post('/addrecord', Controllerinfo.addrecord);
 

@@ -1,6 +1,10 @@
 <div>
   {{main}}
-  
+  <br />
+  <br />
+  {{feed}} is feed
+  <br />
+  <br />
 
   <form ng-submit="add_record(newrecord)">
     <label>Name: </label>
@@ -14,9 +18,6 @@
     <br />
     <label>Activity: </label>
     <input type="text" ng-model="newrecord.activities" />
-    <br />
-    <label>date: </label>
-    <input type="text" ng-model="newrecord.date" />
     <br />
     <label>Level: </label>
     <input type="text" ng-model="newrecord.level" />

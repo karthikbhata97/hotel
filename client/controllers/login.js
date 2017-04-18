@@ -15,7 +15,7 @@ app.controller('loginController', function($scope, $location, $http) {
       }
     }).then(function(data) {
       if(data.data.success) {
-        $location.path('/home').relace();
+        $location.path('/home');
       }
       else {
         alert(data.data.message);
