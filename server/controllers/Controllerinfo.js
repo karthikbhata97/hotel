@@ -5,7 +5,18 @@ var connection = mysql.createConnection({
   password : 'kshaikh',
   database : 'INHOUSE'
 });
+var info= ['student_name', 'usn', 'semester','date','activities','level'];
 
+
+module.export.feed = function(req,res,callback) {
+connection.query('SELECT ?? FROM info',info,function(err,result){
+  if(err) console.log(err +"khamar");
+  var arr1 = [];
+  for(var i=0; i<result.total_rows;i++) arr1.push(result.rows[i].doc);
+
+
+});
+}
 module.exports.addrecord = function(req, res) {
   console.log(req.body);
   console.log(res);
@@ -24,7 +35,7 @@ module.exports.addrecord = function(req, res) {
      res.send({success: false});
    }
    else {
-     console.log('Last record insert id:', result.insertId);
+    // console.log('Last record insert id:', result.insertId);
      res.send({success: true});
    }
   });
