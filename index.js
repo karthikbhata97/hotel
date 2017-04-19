@@ -17,7 +17,7 @@ app.use('/', express.static(__dirname + '/client/'));
 
 app.get('/api/userfeed', function(req, res) {
  var callback = function(arr1) {
-    res.send(JSON.stringify(arr1));
+    res.send(arr1);
   }
   Controllerinfo.feed(req, res, callback);
 });

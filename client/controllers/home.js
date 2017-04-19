@@ -6,8 +6,10 @@ app.controller("homeController", function($scope, $http, $resource, $route) {
   var info=$resource('/api/userfeed');
 
   info.query(function(result){
-    $scope.feed = result;
+    $scope.feed = result[1];
+
   })
+
 
   $scope.add_record = function(record) {
     $http({
