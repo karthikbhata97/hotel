@@ -2,20 +2,26 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : 'kshaikh',
+  password : 'honor4c',
   database : 'INHOUSE'
 });
-var info1= ['student_name', 'usn', 'semester','date','activities','level'];
+var info= ['student_name', 'usn', 'semester','activities','level'];
 
-
-module.exports.feed = function(req,res,callback) {
-connection.query('SELECT ?? FROM info',[info1],function(err,result){
-  if(err) console.log(err +"khamar");
-  var arr1 = JSON.stringify(result);
-  console.log(arr1);
-
+module.exports.feed = function(req,res) {
+connection.query('SELECT ?? FROM records', [info], function(err,result){
+  if(err) {
+    console.log("Error fetching data:");
+    console.log(err);
+    res.end();
+  }
+  else {
+    console.log("Records: ");
+    console.log(result);
+    res.send(result)
+  }
 });
 }
+
 module.exports.addrecord = function(req, res) {
   console.log(req.body);
   console.log(res);
@@ -26,7 +32,7 @@ module.exports.addrecord = function(req, res) {
     activities : req.body.activities,
     level : req.body.level
   }
-  connection.query('INSERT INTO info SET ?', info, function(err,result){
+  connection.query('INSERT INTO records SET ?', info, function(err,result){
    if(err) {
      console.log(err);
      res.send({success: false});

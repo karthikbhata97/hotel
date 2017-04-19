@@ -15,12 +15,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use('/', express.static(__dirname + '/client/'));
 
-app.get('/api/userfeed', function(req, res) {
- var callback = function(arr1) {
-    res.send(arr1);
-  }
-  Controllerinfo.feed(req, res, callback);
-});
+app.get('/api/userfeed', Controllerinfo.feed);
 
 app.post('/login', Controllerlogin.login);
 app.post('/addrecord', Controllerinfo.addrecord);
