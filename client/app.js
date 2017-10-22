@@ -17,5 +17,5 @@ app.config(function($routeProvider) {
 
 
 app.controller('mainController', function($scope) {
-  $scope.main = "Inhouse project!";
+  $scope.main = "Hotel Management";
 })

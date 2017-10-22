@@ -2,13 +2,13 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : 'honor4c',
-  database : 'INHOUSE'
+  password : '',
+  database : 'test'
 });
 var info= ['student_name', 'usn', 'semester','activities','level'];
 
 module.exports.feed = function(req,res) {
-connection.query('SELECT ?? FROM records', [info], function(err,result){
+/*connection.query('SELECT ?? FROM records', [info], function(err,result){
   if(err) {
     console.log("Error fetching data:");
     console.log(err);
@@ -20,6 +20,8 @@ connection.query('SELECT ?? FROM records', [info], function(err,result){
     res.send(result)
   }
 });
+*/
+  res.send([{message: "Done."}]);
 }
 
 module.exports.addrecord = function(req, res) {
