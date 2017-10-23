@@ -15,14 +15,15 @@
 -->
 <div class="container">
   <div class="top">
+    <h1 id="title" class="hidden"><span id="logo">Daily <span>UI</span></span></h1>
   </div>
   <div class="login-box animated fadeInUp">
     <div class="box-header">
-      <h2>Log In</h2>
-      <a href="#/signup"><button>Sign Up</button></a>
+      <h2>Sign UP</h2>
+      <a href="#/login"><button>Login</button></a>
 
     </div>
-    <form ng-submit="login()">
+    <form ng-submit="signup()">
       <br>
     <label for="username">Username</label>
     <input type="text" id="username" ng-model="username">
@@ -30,9 +31,8 @@
     <label for="password">Password</label>
     <input type="password" id="password" ng-model="password">
     <br/>
-    <button type="submit">Sign In</button>
+    <button type="submit">Sign Up</button>
   </form>
-  <br>
     <br/>
   </div>
 </div>

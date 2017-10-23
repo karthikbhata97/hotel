@@ -11,13 +11,21 @@ var server=app.listen(3000,function(){
   console.log("running at port 3000");
 })
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use('/', express.static(__dirname + '/client/'));
 
+
 app.get('/api/userfeed', Controllerinfo.feed);
 
 app.post('/login', Controllerlogin.login);
+app.post('/signup', Controllerlogin.signup);
+
+
 app.post('/addrecord', Controllerinfo.addrecord);
 
 app.get('/', function(req, res) {
