@@ -2,8 +2,8 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : '',
-  database : 'test'
+  password : 'kshaikh',
+  database : 'INHOUSE'
 });
 var info= ['student_name', 'usn', 'semester','activities','level'];
 

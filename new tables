@@ -1,0 +1,14 @@
+create table admin(admin_id varchar(20) , pno varchar(11),email_id varchar(20),password varchar(20), primarykey(admin_id));
+
+create table hotel(hid varchar(20) , name varchar(20) , rooms integer,pno varchar(11), cost integer,lane varchar(20),city varchar(20),pincode varchar(20), primary key(hid));
+
+
+create table restaurant(rid varchar(20),name varchar(20) ,pno varchar(11),lane varchar(20),city varchar(20),pincode varchar(20), primary key(rid));
+
+create table user(userid varchar(20), pno varchar(11), name varchar(20),primary key(userid));
+
+create table hotelmanagement(admin_id varchar(20), hid varchar(20),primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(hid) references hotel(hid));
+
+create table restmanagement(admin_id varchar(20), rid varchar(20),primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(rid) references restaurant(rid));
+
+create table usermanagement(admin_id varchar(20), userid varchar(20),primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(userid) references user(userid));
