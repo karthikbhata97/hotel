@@ -24,17 +24,14 @@ module.exports.feed = function(req,res) {
   res.send([{message: "Done."}]);
 }
 
-module.exports.addrecord = function(req, res) {
+module.exports.addhotel = function(req, res) {
   console.log(req.body);
-  console.log(res);
-  var info = {
-    student_name: req.body.student_name,
-    usn : req.body.usn,
-    semester : req.body.semester,
-    activities : req.body.activities,
-    level : req.body.level
-  }
-  connection.query('INSERT INTO records SET ?', info, function(err,result){
+  // var val = ["name","rooms","pno","lane","city","pincode"];
+
+
+
+//  var info = [req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode]
+  connection.query('INSERT  INTO hotel (name,rooms,pno,lane,city,pincode) values (?,?,?,?,?,?)',[req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
    if(err) {
      console.log(err);
      res.send({success: false});

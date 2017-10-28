@@ -26,7 +26,7 @@ app.post('/login', Controllerlogin.login);
 app.post('/signup', Controllerlogin.signup);
 
 
-app.post('/addrecord', Controllerinfo.addrecord);
+app.post('/addhotel', Controllerinfo.addhotel);
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/client/main.html');
