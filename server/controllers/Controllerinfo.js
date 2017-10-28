@@ -83,3 +83,26 @@ connection.query('SELECT hid from hotel where (name = ?) ',[req.body.name], func
   }
   });
 }
+
+//ROOM BOOKING
+module.exports.bookroom = function(req,res) {
+  console.log(req.body);
+  connection.query('UPDATE rooms SET booked = 1 WHERE hid = ?',[req.body.hid],function(err,result){
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else{
+      connection.query('INSERT INTO (hid,userid,rno,pid) hotelbook values(?,?,?,?) ',[req.body.hid,req.body.userid,req.body.rno,req.body.pid],function(err,result){
+        if(err)
+        {
+          console.log(err);
+          res.send({success: false});
+        }
+        else {
+          res.send({success: true});
+        }
+      });
+    }
+  });
+}
