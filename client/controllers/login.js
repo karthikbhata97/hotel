@@ -30,15 +30,11 @@ app.controller('loginController', function($scope, $location, $http) {
     }, function(err){})
   }
 
-  $scope.signup = function() {
+  $scope.signup = function(data1) {
     $http({
       url: '/signup',
       method: 'post',
-      data: {
-        "username": $scope.username,
-        "password": $scope.password,
-        "type" : "user"
-      }
+      data: data1
     }).then(function(data) {
       alert(data.data.message)
       if(data.data.success) {
