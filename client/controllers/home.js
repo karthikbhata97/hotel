@@ -8,6 +8,12 @@ app.controller("homeController", function($scope, $http, $resource, $route) {
       $scope.hotel_feed = result;
     })
 
+    var food = $resource('/foodfeed');
+    food.query(function(result){
+      $scope.food_feed = result[0].data;
+
+    })
+
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {

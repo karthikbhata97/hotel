@@ -32,6 +32,20 @@ module.exports.gethotels = function(req,res) {
    }
   });
 }
+//GET FOOD CONTENT
+
+module.exports.getfood = function(req,res) {
+  connection.query('SELECT * FROM food',function(err,result){
+   if(err) {
+     console.log(err);
+     res.send({success: false});
+   }
+   else {
+     console.log(result);
+     res.send([{success: true,data:result}]);
+   }
+  });
+}
 
 //GET ROOMS BASED ON HOTEL NAME
 module.exports.gethotelrooms = function(req,res) {
@@ -72,7 +86,7 @@ connection.query('SELECT hid from hotel where (name = ?) ',[req.body.name], func
   });
 }
 
-// ADD restaurant
+// ADD RESTAURANT
 
 module.exports.addrest = function(req, res) {
   console.log(req.body);

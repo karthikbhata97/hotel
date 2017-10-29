@@ -12,7 +12,7 @@ create table restmanagement(admin_id int, rid int,primary key(admin_id),foreign 
 
 create table usermanagement(admin_id int, userid int,primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(userid) references user(userid));
 
-create table food(rid int, foodname varchar(20), decription varchar(100), cost int, primary key(foodname, rid), foreign key(rid) references restaurant(rid));
+create table food(fid int ,rid int, foodname varchar(20), description varchar(100), cost int, primary key(foodname, rid), foreign key(rid) references restaurant(rid));
 
 create table payment(pid int auto_increment, amount int, userid int, primary key(pid), foreign key(userid) references user(userid));
 
