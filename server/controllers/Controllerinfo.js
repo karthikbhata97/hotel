@@ -99,7 +99,7 @@ module.exports.getrest = function(req,res) {
   });
 }
 
-module.exports.bookhotel = function(req, res) {
+module.exports.bookroom = function(req, res) {
   connection.query('UPDATE rooms SET booked = 1 WHERE rno = (SELECT MIN(rno) FROM rooms WHERE hid = ? AND booked = 0)', [req.body.hid], function(err, result) {
     if(err) {
       console.log(err);
