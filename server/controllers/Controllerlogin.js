@@ -26,14 +26,26 @@ module.exports.login = function(req, res) {
 
 module.exports.signup = function(req, res) {
   console.log(req.body);
+  connection.query('INSERT INTO user(pno, name) value(?, ?)', [req.body.pno, req.body.name], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({"success": false, message: "Failed to update user database"});
+    }
+    else {
+      return populate_login(req.body.username, req.body.password, req.body.type, result[0].userid);
+    }
+  });
+}
+
+
+var populate_login = function(username, password, type, id) {
   connection.query('INSERT INTO login values (?,?,?) ',[req.body.username,req.body.password,req.body.type], function (error, result, fields) {
-    if(error)
-    {
+    if(error) {
       console.log(error);
       res.send({success: false, message: "INVALID USERNAME OR USERNAME ALREADY EXISTS"});
     }
     else {
-        res.send({success: true, message: "SUCCESSFULLY REGISTERED"});
+      res.send({success: true, message: "SUCCESSFULLY REGISTERED"});
     }
   });
 }
