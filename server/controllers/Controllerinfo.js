@@ -106,7 +106,28 @@ module.exports.bookroom = function(req, res) {
       res.send({"success": false});
     }
     else {
-      res.send({"success": true, book: result});
+      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, req.body.userid, result[0].rno, req.body.pid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({"success": false});
+        }
+        else {
+          res.send({"success": true, book: result});
+        }
+      })
     }
   });
 }
+
+
+module.exports.bookrest = function(req, res) {
+  connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, req.body.userid, req.body.pid, req.body.foodname], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({"success": false});
+    }
+    else {
+      res.send({"success": true, book: result});
+    }
+  })
+};

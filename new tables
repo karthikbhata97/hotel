@@ -12,7 +12,7 @@ create table restmanagement(admin_id int, rid int,primary key(admin_id),foreign 
 
 create table usermanagement(admin_id int, userid int,primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(userid) references user(userid));
 
-create table food(rid int, foodname varchar(20), decription varchar(100), cost int, primary key(rid), foreign key(rid) references restaurant(rid));
+create table food(rid int, foodname varchar(20), decription varchar(100), cost int, primary key(foodname, rid), foreign key(rid) references restaurant(rid));
 
 create table payment(pid int auto_increment, amount int, userid int, primary key(pid), foreign key(userid) references user(userid));
 
@@ -21,3 +21,5 @@ create table login(username varchar(20), password varchar(20), type enum('hotel'
 create table rooms(rno int auto_increment, hid int, booked bool, cost integer, primary key(rno), foreign key(hid) references hotel(hid));
 
 create table hotelbook(bid int auto_increment, hid int, userid int, rno int, pid int, primary key(bid), foreign key(hid) references hotel(hid), foreign key(userid) references user(userid), foreign key(pid) references payment(pid));
+
+create table restbook(bid int auto_increment, rid int, userid int, pid int, foodname varchar(20), primary key(bid), foreign key(rid) references restaurant(rid), foreign key(userid) references user(userid), foreign key(pid) references payment(pid), foreign key(foodname) references food(foodname));
