@@ -1,27 +1,50 @@
 var app = angular.module("myApp");
 
-app.controller("homeController", function($scope, $http, $resource, $route) {
+app.controller("adminController", function($scope, $http, $resource, $route) {
   $scope.main = "Home"
 
-  var info=$resource('/api/userfeed');
+  var hotel_list = $resource('/api/gethotel');
 
-  info.query(function(result){
-    $scope.feed = result;
+  hotel_list.query(function(result){
+    $scope.hotel_feed = result;
   })
 
-  $scope.add_record = function(record) {
+$scope.hoteldata = {};
+$scope.restdata = {};
+  $scope.add_hotel = function(hoteldata) {
     $http({
-      url: '/addrecord',
+      url: '/addhotel',
       method: 'post',
-      data: record
+      data: hoteldata
     }).then(function(data) {
       if(data.data.success) {
+        alert("success");
         $scope.newrecord = {}
-        alert("success")
       }
       else {
         alert("Failed")
       }
     }, function(err){});
   }
+
+
+    $scope.add_restaurant = function(restdata) {
+      $http({
+        url: '/addrestaurant',
+        method: 'post',
+        data: restdata
+      }).then(function(data) {
+        if(data.data.success) {
+          alert("success");
+          $scope.newrecord = {}
+        }
+        else {
+          alert("Failed")
+        }
+      }, function(err){});
+    }
+
+
+
+
 })
