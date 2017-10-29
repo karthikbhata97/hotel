@@ -49,3 +49,15 @@ var populate_login = function(username, password, type, id) {
     }
   });
 }
+
+module.exports.register = function(req, res) {
+    connection.query("INSERT INTO login values(?, ?, ?, ?)", [req.body.username, req.body.password, req.body.type, req.body.id], function(err, result) {
+      if(err) {
+        console.log(err);
+        res.send({"success": false, "message": "Failed to register"});
+      }
+      else {
+        res.send({"success": true, "message": "Registered successfully"});
+      }
+    })
+};
