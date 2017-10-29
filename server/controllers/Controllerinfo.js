@@ -2,18 +2,9 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : 'kshaikh',
+  password : '',
   database : 'hotel'
 });
-var info= ['student_name', 'usn', 'semester','activities','level'];
-
-module.exports.feed = function(req,res) {
-/*connection.query('SELECT ?? FROM records', [info], function(err,result){
-
-});
-*/
-  res.send([{message: "Done."}]);
-}
 
 //ADD HOTELS
 module.exports.addhotel = function(req, res) {
@@ -33,7 +24,6 @@ module.exports.addhotel = function(req, res) {
 
 //GET ALL HOTELS HAVING ROOMS MORE THAN 0
 module.exports.gethotels = function(req,res) {
-
   connection.query('SELECT * FROM hotel WHERE (rooms > 0)',function(err,result){
    if(err) {
      console.log(err);
@@ -48,7 +38,7 @@ module.exports.gethotels = function(req,res) {
 //GET ROOMS BASED ON HOTEL NAME
 module.exports.gethotelrooms = function(req,res) {
 
-  connection.query('SELECT * FROM rooms WHERE (hid = (SELECT * FROM hotel WHERE (name = ? AND rooms>0)) AND booked = 0))',[req.body.hotelname],function(err,result){
+  connection.query('SELECT * FROM rooms WHERE hid in (SELECT hid FROM hotel WHERE (name = ? AND rooms>0) AND booked = 0))',[req.body.hotelname],function(err,result){
     if(err)
     {
       console.log(err);
@@ -93,7 +83,7 @@ module.exports.bookroom = function(req,res) {
       res.send({success: false});
     }
     else{
-      connection.query('INSERT INTO (hid,userid,rno,pid) hotelbook values(?,?,?,?) ',[req.body.hid,req.body.userid,req.body.rno,req.body.pid],function(err,result){
+      connection.query('INSERT INTO hotelbook(hid,userid,rno,pid) values(?,?,?,?) ',[req.body.hid,req.body.userid,req.body.rno,req.body.pid],function(err,result){
         if(err)
         {
           console.log(err);
