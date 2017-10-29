@@ -28,7 +28,7 @@ module.exports.gethotels = function(req,res) {
      res.send({success: false});
    }
    else {
-     res.send({success: true,data:result});
+     res.send([{success: true,data:result}]);
    }
   });
 }

@@ -17,19 +17,25 @@
   <div class="top">
     <h1 id="title" class="hidden"><span id="logo">Daily <span>UI</span></span></h1>
   </div>
-  <div class="login-box animated fadeInUp">
+  <div class="login-box animated fadeInUp" style="width:50%">
     <div class="box-header">
       <h2 style="border-style: groove;">Sign UP</h2>
       <a href="#/login" style="border-style: groove;"><button>Login</button></a>
 
     </div>
-    <form ng-submit="signup()">
+    <form ng-submit="signup(data1)">
       <br>
-    <label for="username">Username</label>
-    <input type="text" id="username" ng-model="username">
+    <label for="username">USERNAME</label>
+    <input type="text" id="username" ng-model="data1.username">
     <br/>
-    <label for="password">Password</label>
-    <input type="password" id="password" ng-model="password">
+    <label for="password">PASSWORD</label>
+    <input type="password" id="password" ng-model="data1.password">
+    <br/>
+    <label for="username">PHONE NUMBER</label>
+    <input type="text" id="username" ng-model="data1.pno">
+    <br/>
+    <label for="username">NAME</label>
+    <input type="text" id="username" ng-model="data1.name">
     <br/>
     <button type="submit">Sign Up</button>
   </form>

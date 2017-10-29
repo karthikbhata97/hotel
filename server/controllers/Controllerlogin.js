@@ -11,7 +11,7 @@ module.exports.login = function(req, res) {
   connection.query('SELECT * FROM login WHERE (username = ?)', [ req.body.username ], function (error, result, fields) {
     if(error) console.log(error);
     else if(!result.length) {
-      res.send({success: false, message: "incorrect username"})
+      res.send({success: false, message: "INCORRECT USERNAME"})
     }
     else {
       if(result[0].password == req.body.password){

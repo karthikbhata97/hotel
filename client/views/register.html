@@ -26,7 +26,11 @@
     </select>
     <br><br>
     <label>NAME: </label>
-    <input type="text" ng-model="registrationdata.name"/>
+    <!-- {{hotel_feed}} -->
+    <select ng-model = "registrationdata.hid" name="option">
+      <option ng-repeat="item in hotel_feed" value="{{item.hid}}">{{item.name}}</option>
+    </select>
+
     <br><br>
 <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
   </form>

@@ -1,10 +1,15 @@
 var app = angular.module("myApp");
 
-app.controller('loginController', function($scope, $location, $http) {
+app.controller('loginController', function($scope,$resource, $location, $http) {
   $scope.main = "Login";
   $scope.username = "";
   $scope.password = "";
   $scope.access = 0;
+  var hotel_list = $resource('/gethotels');
+  hotel_list.query(function(result){
+    $scope.hotel_feed = result[0].data;
+  })
+
   $scope.login = function() {
     $http({
       url: '/login',
@@ -15,7 +20,7 @@ app.controller('loginController', function($scope, $location, $http) {
       }
     }).then(function(data) {
       if(data.data.success) {
-        if(data.data.admin)
+        if(data.data.type=="admin")
         $location.path('/admin');
         else if(data.data.type=="hotel")
         $location.path('/hotel');
@@ -30,15 +35,11 @@ app.controller('loginController', function($scope, $location, $http) {
     }, function(err){})
   }
 
-  $scope.signup = function() {
+  $scope.signup = function(data1) {
     $http({
       url: '/signup',
       method: 'post',
-      data: {
-        "username": $scope.username,
-        "password": $scope.password,
-        "type" : "user"
-      }
+      data: data1
     }).then(function(data) {
       alert(data.data.message)
       if(data.data.success) {
