@@ -26,7 +26,7 @@ module.exports.login = function(req, res) {
 
 module.exports.signup = function(req, res) {
   console.log(req.body);
-  connection.query('INSERT INTO login values (?,?,?) ',[req.body.username,req.body.password,'user'], function (error, result, fields) {
+  connection.query('INSERT INTO login values (?,?,?) ',[req.body.username,req.body.password,req.body.type], function (error, result, fields) {
     if(error)
     {
       console.log(error);
