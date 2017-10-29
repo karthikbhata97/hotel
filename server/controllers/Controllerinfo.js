@@ -35,7 +35,7 @@ module.exports.gethotels = function(req,res) {
 //GET FOOD CONTENT
 
 module.exports.getfood = function(req,res) {
-  connection.query('SELECT * FROM food',function(err,result){
+  connection.query('SELECT * FROM food where rid = ?', [req.body.rid],function(err,result){
    if(err) {
      console.log(err);
      res.send({success: false});

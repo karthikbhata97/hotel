@@ -8,10 +8,9 @@ app.controller("homeController", function($scope, $http, $resource, $route) {
       $scope.hotel_feed = result;
     })
 
-    var food = $resource('/foodfeed');
-    food.query(function(result){
-      $scope.food_feed = result[0].data;
-
+    var restaurant = $resource('/getrestaurant');
+    restaurant.query(function(result){
+      $scope.restaurant_feed = result[0].data;
     })
 
 });
