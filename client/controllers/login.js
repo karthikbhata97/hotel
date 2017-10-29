@@ -17,10 +17,13 @@ app.controller('loginController', function($scope, $location, $http) {
       if(data.data.success) {
         if(data.data.admin)
         $location.path('/admin');
-        else
-        $location.path('/home');
+        else if(data.data.type=="hotel")
+        $location.path('/hotel');
+        else if(data.data.type=="restaurant")
+        $location.path('/restaurant');
+        else if(data.data.type=="user")
+        $location.path('/user');
       }
-
       else {
         alert(data.data.message);
       }
@@ -33,7 +36,8 @@ app.controller('loginController', function($scope, $location, $http) {
       method: 'post',
       data: {
         "username": $scope.username,
-        "password": $scope.password
+        "password": $scope.password,
+        "type" : "user"
       }
     }).then(function(data) {
       alert(data.data.message)
@@ -43,4 +47,27 @@ app.controller('loginController', function($scope, $location, $http) {
 
     }, function(err){})
   }
+$scope.registrationdata = {}
+$scope.registrationdata.type = "hotel"
+  $scope.register = function(registrationdata){
+    $http({
+      url: '/signup',
+      method: 'post',
+      data: registrationdata
+    }).then(function(data) {
+      alert(data.data.message)
+      if(data.data.success) {
+        alert("REGISTRATION SUCCESSFULL");
+        $location.path('/register');
+      }
+      else {
+        alert("REGISTRATION FAILED");
+      }
+
+    }, function(err){})
+  }
+
+
+
+
 })

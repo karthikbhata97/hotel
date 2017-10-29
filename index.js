@@ -20,7 +20,6 @@ app.use(morgan('dev'));
 app.use('/', express.static(__dirname + '/client/'));
 
 
-app.get('/api/userfeed', Controllerinfo.feed);
 
 app.post('/login', Controllerlogin.login);
 app.post('/signup', Controllerlogin.signup);

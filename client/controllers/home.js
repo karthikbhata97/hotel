@@ -1,13 +1,18 @@
 var app = angular.module("myApp");
 
+
+app.controller("homeController", function($scope, $http, $resource, $route) {
+
+    var hotel_list = $resource('/gethotels');
+    hotel_list.query(function(result){
+      $scope.hotel_feed = result;
+    })
+
+});
+
 app.controller("adminController", function($scope, $http, $resource, $route) {
   $scope.main = "Home"
 
-  var hotel_list = $resource('/api/gethotel');
-
-  hotel_list.query(function(result){
-    $scope.hotel_feed = result;
-  })
 
 $scope.hoteldata = {};
 $scope.restdata = {};
