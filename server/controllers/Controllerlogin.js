@@ -15,7 +15,7 @@ module.exports.login = function(req, res) {
     }
     else {
       if(result[0].password == req.body.password){
-        res.send({success: true, message: "correct" ,admin:result[0].admin})
+        res.send({success: true, message: "correct" ,type: result[0].type})
       }
       else {
         res.send({success: false, message: "INVALID credentials!"});
@@ -25,10 +25,8 @@ module.exports.login = function(req, res) {
 }
 
 module.exports.signup = function(req, res) {
-
   console.log(req.body);
-
-  connection.query('INSERT INTO login values (?,?,?) ',[req.body.username,req.body.password,0], function (error, result, fields) {
+  connection.query('INSERT INTO login values (?,?,?) ',[req.body.username,req.body.password,'user'], function (error, result, fields) {
     if(error)
     {
       console.log(error);

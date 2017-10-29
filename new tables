@@ -20,4 +20,4 @@ create table food(rid int, foodname varchar(20), decription(100), cost int, prim
 
 create table payment(pid int auto_increment, amount int, userid varchar(20), primary key(pid), foreign key(userid) references user(userid));
 
-create table login(username varchar(20), password varchar(20), admin bool, primary key(username));
+create table login(username varchar(20), password varchar(20), type enum('hotel', 'restaurant', 'admin', 'user'), primary key(username));

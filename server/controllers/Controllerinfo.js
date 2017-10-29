@@ -9,8 +9,6 @@ var connection = mysql.createConnection({
 //ADD HOTELS
 module.exports.addhotel = function(req, res) {
   console.log(req.body);
-  // var val = ["name","rooms","pno","lane","city","pincode"];
-  //var info = [req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode]
   connection.query('INSERT  INTO hotel (name,rooms,pno,lane,city,pincode) values (?,?,?,?,?,?)',[req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
    if(err) {
      console.log(err);
@@ -94,5 +92,32 @@ module.exports.bookroom = function(req,res) {
         }
       });
     }
+  });
+}
+
+// ADD restaurant
+
+module.exports.addrest = function(req, res) {
+  console.log(req.body);
+  connection.query('INSERT INTO restaurant(name,pno,lane,city,pincode) values (?,?,?,?,?)',[req.body.name,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
+   if(err) {
+     console.log(err);
+     res.send({success: false});
+   }
+   else {
+     res.send({success: true});
+   }
+  });
+}
+
+module.exports.getrest = function(req,res) {
+  connection.query('SELECT * FROM restaurant',function(err,result){
+   if(err) {
+     console.log(err);
+     res.send({success: false});
+   }
+   else {
+     res.send({success: true,data:result});
+   }
   });
 }
