@@ -31,6 +31,7 @@ app.get('/gethotelrooms',Controllerinfo.gethotelrooms);
 app.post('/addhotelrooms',Controllerinfo.addhotelrooms);
 app.post('/addrestaurant',Controllerinfo.addrest);
 app.post('/bookrestaurant',Controllerinfo.bookrest);
+app.post('/bookroom',Controllerinfo.bookroom);
 app.post('/register',Controllerlogin.register)
 
 

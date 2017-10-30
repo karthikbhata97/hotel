@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 
 //ADD HOTELS
 module.exports.addhotel = function(req, res) {
-  // console.log(req.body);
+  //console.log(req.body);
   connection.query('INSERT  INTO hotel (name,rooms,pno,lane,city,pincode) values (?,?,?,?,?,?)',[req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
    if(err) {
      console.log(err);
@@ -121,6 +121,7 @@ module.exports.getrest = function(req,res) {
 }
 
 module.exports.bookroom = function(req, res) {
+  console.log(req.body);
   connection.query('UPDATE rooms SET booked = 1 WHERE rno = (SELECT MIN(rno) FROM rooms WHERE hid = ? AND booked = 0)', [req.body.hid], function(err, result) {
     if(err) {
       console.log(err);
@@ -142,7 +143,7 @@ module.exports.bookroom = function(req, res) {
 
 
 module.exports.bookrest = function(req, res) {
-  // console.log(req.body);
+  console.log(req.body);
   console.log("here");
   res.end();
   // connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, req.body.userid, req.body.pid, req.body.foodname], function(err, result) {
