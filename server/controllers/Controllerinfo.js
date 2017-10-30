@@ -3,7 +3,7 @@ var url        = require('url');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : 'kshaikh',
+  password : '',
   database : 'hotel'
 });
 
@@ -11,43 +11,43 @@ var connection = mysql.createConnection({
 module.exports.addhotel = function(req, res) {
   // console.log(req.body);
   connection.query('INSERT  INTO hotel (name,rooms,pno,lane,city,pincode) values (?,?,?,?,?,?)',[req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
-   if(err) {
-     console.log(err);
-     res.send({success: false});
-   }
-   else {
-     res.send({success: true});
-   }
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      res.send({success: true});
+    }
   });
 }
 
 //GET ALL HOTELS HAVING ROOMS MORE THAN 0
 module.exports.gethotels = function(req,res) {
   connection.query('SELECT * FROM hotel WHERE (rooms > 0)',function(err,result){
-   if(err) {
-     console.log(err);
-     res.send({success: false});
-   }
-   else {
-     res.send([{success: true,data:result}]);
-   }
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      res.send([{success: true,data:result}]);
+    }
   });
 }
 //GET FOOD CONTENT
 
 module.exports.getfood = function(req,res) {
-var url_parts = url.parse(req.url, true);
-var rid = url_parts.query.rid;
-// console.log(rid);
+  var url_parts = url.parse(req.url, true);
+  var rid = url_parts.query.rid;
+  // console.log(rid);
   connection.query('SELECT * FROM food where rid = ?', [rid],function(err,result){
-   if(err) {
-     console.log(err);
-     res.send({success: false});
-   }
-   else {
-     console.log(result);
-     res.send([{success: true,data:result}]);
-   }
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      console.log(result);
+      res.send([{success: true,data:result}]);
+    }
   });
 }
 
@@ -65,30 +65,30 @@ module.exports.gethotelrooms = function(req,res) {
       console.log(result);
       res.send({success: true,data:result});
     }
-});
+  });
 }
 
 //ADD ROOMS FOR HOTELS
 module.exports.addhotelrooms = function(req,res) {
-// console.log(req.body);
-connection.query('SELECT hid from hotel where (name = ?) ',[req.body.name], function(err,result){
-  if(err) {
-    console.log(err);
-    res.send({success: false});
-  }
-  else{
-  var hid = result[0].hid;
-  connection.query('INSERT  INTO rooms (hid,booked,cost) values (?,?,?)',[hid,0,req.body.cost], function(err,result){
-    if(err)
-    {
+  // console.log(req.body);
+  connection.query('SELECT hid from hotel where (name = ?) ',[req.body.name], function(err,result){
+    if(err) {
       console.log(err);
       res.send({success: false});
     }
-    else {
-      res.send({success: true,data:result});
+    else{
+      var hid = result[0].hid;
+      connection.query('INSERT  INTO rooms (hid,booked,cost) values (?,?,?)',[hid,0,req.body.cost], function(err,result){
+        if(err)
+        {
+          console.log(err);
+          res.send({success: false});
+        }
+        else {
+          res.send({success: true,data:result});
+        }
+      });
     }
-   });
-  }
   });
 }
 
@@ -97,45 +97,64 @@ connection.query('SELECT hid from hotel where (name = ?) ',[req.body.name], func
 module.exports.addrest = function(req, res) {
   // console.log(req.body);
   connection.query('INSERT INTO restaurant(name,pno,lane,city,pincode) values (?,?,?,?,?)',[req.body.name,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
-   if(err) {
-     console.log(err);
-     res.send({success: false});
-   }
-   else {
-     res.send({success: true});
-   }
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      res.send({success: true});
+    }
   });
 }
 
 module.exports.getrest = function(req,res) {
   connection.query('SELECT * FROM restaurant',function(err,result){
-   if(err) {
-     console.log(err);
-     res.send({success: false});
-   }
-   else {
-    //  console.log(result);
-     res.send([{success: true,data:result}]);
-   }
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      //  console.log(result);
+      res.send([{success: true,data:result}]);
+    }
   });
 }
 
 module.exports.bookroom = function(req, res) {
-  connection.query('UPDATE rooms SET booked = 1 WHERE rno = (SELECT MIN(rno) FROM rooms WHERE hid = ? AND booked = 0)', [req.body.hid], function(err, result) {
+  connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
     }
     else {
-      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, req.body.userid, result[0].rno, req.body.pid], function(err, result) {
+      connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [req.body.userid], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false});
         }
-        else {
-          res.send({"success": true, book: result});
+        else  {
+          var pid = result[0].pid;
+          console.log(result);
+          connection.query('UPDATE rooms set booked = 1 where rno = ?', [req.body.rno], function(err, result) {
+            if(err) {
+              console.log(err);
+              res.send({"success": false});
+            }
+            else {
+              console.log(result);
+              connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, req.body.userid, req.body.rno, pid], function(err, result) {
+                if(err) {
+                  console.log(err);
+                  res.send({"success": false});
+                }
+                else {
+                  res.send({"success": true, book: result});
+                }
+              })
+            }
+          });
         }
-      })
+      });
     }
   });
 }
