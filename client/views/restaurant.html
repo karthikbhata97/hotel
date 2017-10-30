@@ -1,0 +1,29 @@
+<div>
+
+  <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
+  <div class="well">
+
+    <div class="display-area">
+    <strong>>FOOD MENU</strong><br>
+    <!-- <form ng-submit=get_menu(data)> -->
+
+SELECT RESTAURANT:    <select ng-model="data.rid">
+      <option selected disabled>select</option>
+      <option ng-repeat="item in restaurant_feed" value="{{item.rid}}">{{item.name}}</option>
+    </select>
+    <!-- <button type="submit">SUBMIT</button> -->
+    <!-- </form> -->
+    <hr>
+    <div class="article" ng-repeat="x in menu">
+      <!-- {{x}} -->
+      <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
+      <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>
+      <h5  style="float:right;margin-right:50px;">COST:{{x.cost}}</h5>
+      <button ng-click="book(x)">ORDER</button>
+      <p style="width:500px">{{x.description}}</p>
+      <hr>
+    </div>
+
+    </div>
+  </div>
+</div>

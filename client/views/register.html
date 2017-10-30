@@ -27,10 +27,16 @@
     <br><br>
     <label>NAME: </label>
     <!-- {{hotel_feed}} -->
-    <select ng-model = "registrationdata.hid" name="option">
+    <div ng-if="registrationdata.type=='hotel'">
+    <select ng-model = "registrationdata.id" name="option">
       <option ng-repeat="item in hotel_feed" value="{{item.hid}}">{{item.name}}</option>
     </select>
-
+    </div>
+    <div ng-if="registrationdata.type=='restaurant'">
+    <select ng-model = "registrationdata.id" name="option">
+      <option ng-repeat="item in restaurant_feed" value="{{item.rid}}">{{item.name}}</option>
+    </select>
+    </div>
     <br><br>
 <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
   </form>

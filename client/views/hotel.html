@@ -4,14 +4,28 @@
   <div class="well">
 
     <div class="display-area">
-    <strong>>FOOD MENU</strong><br>
-    <div class="article" ng-repeat="x in food_feed">
-      <br>
+    <strong>>HOTEL LIST</strong><br>
+    <form ng-submit=get_rooms(data)>
+<!-- {{hotel_feed}} -->
+SELECT HOTEL:    <select ng-model="data.hid">
+      <option selected disabled>select</option>
+      <option ng-repeat="item in hotel_feed" value="{{item.hid}}">{{item.name}}</option>
+    </select>
+    <button type="submit">SUBMIT</button>
+    </form>
+    <hr>
+
+    <div class="article" ng-repeat="x in rooms">
+      <strong>ROOM NO:</strong>{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>COST:</strong>{{x.cost}}
+
+      <!-- {{x}} -->
       <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
-      <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>
-      <br>
-      <p>{{x.description}}</p>
-      <hr>
+      <!-- <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>
+      <h5  style="float:right;margin-right:50px;">COST:{{x.cost}}</h5>
+      <button ng-click="book(x)">ORDER</button>
+      <p style="width:500px">{{x.description}}</p>
+      <hr> -->
     </div>
 
     </div>
