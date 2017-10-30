@@ -81,6 +81,27 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
         }
       }, function(err){});
     }
+
+
+        $scope.addfood = function(food){
+          food.userid = $window.localStorage["user"];
+          alert(food.userid);
+          alert(JSON.stringify(food));
+          $http({
+            url: '/addfood',
+            method: 'post',
+            data:data
+          }).then(function(data) {
+            if(data.data.success) {
+              alert("food item added successfully");
+            }
+            else {
+              alert("Failed");
+            }
+          }, function(err){});
+        }
+
+
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {
