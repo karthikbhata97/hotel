@@ -31,8 +31,10 @@ app.get('/gethotelrooms',Controllerinfo.gethotelrooms);
 app.post('/addhotelrooms',Controllerinfo.addhotelrooms);
 app.post('/addrestaurant',Controllerinfo.addrest);
 app.post('/bookrestaurant',Controllerinfo.bookrest);
-app.post('/register',Controllerlogin.register)
-app.post('/bookroom',Controllerinfo.bookroom)
+app.post('/register',Controllerlogin.register);
+app.post('/bookroom',Controllerinfo.bookroom);
+app.post('/bookrestaurant',Controllerinfo.bookrest);
+app.post('/addfood',Controllerinfo.addfood);
 
 
 app.get('/', function(req, res) {

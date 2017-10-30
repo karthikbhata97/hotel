@@ -127,45 +127,48 @@ module.exports.bookroom = function(req, res) {
       console.log(err);
       res.send({"success": false});
     }
-
-else{
-  req.body.userid = result[0].userid;
-  connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
-    if(err) {
-      console.log(err);
-      res.send({"success": false});
-    }
-  else {
-  connection.query('UPDATE rooms SET booked = 1 WHERE rno = ?', [req.body.rno], function(err, result) {
-    if(err) {
-      console.log(err);
-      res.send({"success": false});
-    }
-    else {
-      connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [req.body.userid], function(err, result) {
+    else{
+      req.body.userid = result[0].userid;
+      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false});
         }
-        else  {
-          var pid = result[0].pid;
-          console.log(result);
-          connection.query('UPDATE rooms set booked = 1 where rno = ?', [req.body.rno], function(err, result) {
+        else {
+          connection.query('UPDATE rooms SET booked = 1 WHERE rno = ?', [req.body.rno], function(err, result) {
             if(err) {
               console.log(err);
               res.send({"success": false});
             }
             else {
-              console.log(result);
-              connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, req.body.userid, req.body.rno, pid], function(err, result) {
+              connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [req.body.userid], function(err, result) {
                 if(err) {
                   console.log(err);
                   res.send({"success": false});
                 }
-                else {
-                  res.send({"success": true, book: result});
+                else  {
+                  var pid = result[0].pid;
+                  console.log(result);
+                  connection.query('UPDATE rooms set booked = 1 where rno = ?', [req.body.rno], function(err, result) {
+                    if(err) {
+                      console.log(err);
+                      res.send({"success": false});
+                    }
+                    else {
+                      console.log(result);
+                      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, req.body.userid, req.body.rno, pid], function(err, result) {
+                        if(err) {
+                          console.log(err);
+                          res.send({"success": false});
+                        }
+                        else {
+                          res.send({"success": true, book: result});
+                        }
+                      })
+                    }
+                  });
                 }
-              })
+              });
             }
           });
         }
@@ -173,22 +176,65 @@ else{
     }
   });
 }
-});
-}
-});
-}
 
 module.exports.bookrest = function(req, res) {
   console.log(req.body);
   console.log("here");
   res.end();
-  // connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, req.body.userid, req.body.pid, req.body.foodname], function(err, result) {
-  //   if(err) {
-  //     console.log(err);
-  //     res.send({"success": false});
-  //   }
-  //   else {
-  //     res.send({"success": true, book: result});
-  //   }
-  // })
+  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.userid,"user"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({"success": false});
+    }
+    else {
+      req.body.userid = result[0].id;
+      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({"success": false});
+        }
+        else {
+          connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [req.body.userid], function(err, result) {
+            if(err) {
+              console.log(err);
+              res.send({"success": false});
+            }
+            else {
+              var pid = result[0].pid;
+              connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, req.body.userid, pid, req.body.foodname], function(err, result) {
+                if(err) {
+                  console.log(err);
+                  res.send({"success": false});
+                }
+                else {
+                  res.send({"success": true, "message": "Booked successfully"});
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+};
+
+module.exports.addfood = function(req, res) {
+  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.userid,"restaurant"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({"success": false});
+    }
+    else {
+      req.body.userid = result[0].id;
+      connection.query('INSERT INTO food(rid, foodname, description, cost)', [req.body.userid, req.body.foodname, req.body.description, req.body.cost], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({"success": false});
+        }
+        else {
+          res.send({"success": true, "message": "New food added"});
+        }
+      });
+    }
+  });
 };
