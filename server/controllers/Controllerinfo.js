@@ -121,12 +121,12 @@ module.exports.getrest = function(req,res) {
 }
 
 module.exports.bookroom = function(req, res) {
+  console.log(req.body);
   connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
     }
-  console.log(req.body);
   else {
   connection.query('UPDATE rooms SET booked = 1 WHERE rno = (SELECT MIN(rno) FROM rooms WHERE hid = ? AND booked = 0)', [req.body.hid], function(err, result) {
     if(err) {
@@ -165,7 +165,8 @@ module.exports.bookroom = function(req, res) {
     }
   });
 }
-
+});
+}
 
 module.exports.bookrest = function(req, res) {
   console.log(req.body);
