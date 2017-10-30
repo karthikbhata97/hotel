@@ -3,7 +3,7 @@ var url        = require('url');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   user     : 'root',
-  password : '',
+  password : 'kshaikh',
   database : 'hotel'
 });
 
@@ -122,13 +122,21 @@ module.exports.getrest = function(req,res) {
 
 module.exports.bookroom = function(req, res) {
   console.log(req.body);
+  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.userid,"user"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({"success": false});
+    }
+
+else{
+  req.body.userid = result[0].userid;
   connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
     }
   else {
-  connection.query('UPDATE rooms SET booked = 1 WHERE rno = (SELECT MIN(rno) FROM rooms WHERE hid = ? AND booked = 0)', [req.body.hid], function(err, result) {
+  connection.query('UPDATE rooms SET booked = 1 WHERE rno = ?', [req.body.rno], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
@@ -164,6 +172,8 @@ module.exports.bookroom = function(req, res) {
       });
     }
   });
+}
+});
 }
 });
 }

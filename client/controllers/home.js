@@ -11,20 +11,20 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     var restaurant = $resource('/getrestaurant');
     restaurant.query(function(result){
       $scope.restaurant_feed = result[0].data;
+    })
 
+    var user_feed = $resource('/getuserfeed?userid='+$window.localStorage["user"]);
+    user_feed.query(function(result){
+      $scope.user_feed = result[0].data;
     })
 
     $scope.get_menu = function(data) {
-      // alert(JSON.parse(data))
       $http({
         url: '/foodfeed?rid='+ data.rid,
         method: 'get'
       }).then(function(data) {
-        // alert(JSON.stringify(data.data))
         if(data.data[0].success) {
-          // alert("success");
           $scope.menu = data.data[0].data;
-          // alert($scope.menu)
         }
         else {
           alert("Failed to fetch details");
@@ -32,18 +32,13 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       }, function(err){});
     }
 
-
         $scope.get_rooms = function(data) {
-          // alert(JSON.parse(data))
           $http({
             url: '/gethotelrooms?hid='+ data.hid,
             method: 'get'
           }).then(function(data) {
-            // alert(JSON.stringify(data.data))
             if(data.data.success) {
-              // alert("success");
               $scope.rooms = data.data.data;
-              // alert($scope.rooms)
             }
             else {
               alert("Failed to fetch details");
@@ -51,19 +46,17 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }, function(err){});
         }
 
-    $scope.book = function(data){
+    $scope.book_restaurant = function(data){
       data.userid = $window.localStorage["user"];
       alert(data.userid);
+      alert(JSON.stringify(data));
       $http({
         url: '/bookrestaurant',
         method: 'post',
         data:data
       }).then(function(data) {
-        // alert(JSON.stringify(data.data))
         if(data.data.success) {
-          // alert("success");
-          $scope.menu = data.data[0].data;
-          // alert($scope.menu)
+          alert("booked successfully");
         }
         else {
           alert("Failed");
@@ -71,6 +64,23 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       }, function(err){});
     }
 
+    $scope.book_room = function(data){
+      data.userid = $window.localStorage["user"];
+      alert(data.userid);
+      alert(JSON.stringify(data));
+      $http({
+        url: '/bookroom',
+        method: 'post',
+        data:data
+      }).then(function(data) {
+        if(data.data.success) {
+          alert("booked successfully");
+        }
+        else {
+          alert("Failed");
+        }
+      }, function(err){});
+    }
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {

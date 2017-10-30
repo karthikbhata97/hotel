@@ -18,7 +18,7 @@ SELECT HOTEL:    <select ng-model="data.hid">
     <div class="article" ng-repeat="x in rooms">
       <strong>ROOM NO:</strong>{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <strong>COST:</strong>{{x.cost}}
-
+      <button style="float:right;" ng-click="book_room(x)">ORDER</button>
       <!-- {{x}} -->
       <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
       <!-- <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>

@@ -27,7 +27,7 @@
 
   <div class="left-col">  HOTEL NAME :</div> <input type="text" ng-model = "hoteldata.name"></input><br><br>
   <div class="left-col">  ROOMS : </div><input type="text" ng-model = "hoteldata.rooms"></input><br><br>
-  <div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "hoteldata.pno"></input><br><br>
+  <div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "hoteldata.pno" pattern="[789][0-9]{9}" placeholder="9132456688"></input><br><br>
   <div class="left-col">  LANE :</div> <input type="text" ng-model = "hoteldata.lane"></input><br><br>
   <div class="left-col">  CITY :</div> <input type="text" ng-model = "hoteldata.city"></input><br><br>
   <div class="left-col">  PINCODE :</div> <input type="text" ng-model = "hoteldata.pincode"></input><br><br>
@@ -38,7 +38,7 @@
   <h4 style="text-align:center"><u>RESTAURANT REGISTRATION</u></h4>
   <form ng-submit="add_restaurant(restdata)">
 <div class="left-col">  RESTAURANT NAME :</div> <input type="text" ng-model = "restdata.name"></input><br><br>
-<div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "restdata.pno"></input><br><br>
+<div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "restdata.pno" pattern="[789][0-9]{9}" placeholder="9132456688"></input><br><br>
 <div class="left-col">  LANE :</div> <input type="text" ng-model = "restdata.lane"></input><br><br>
 <div class="left-col">  CITY :</div> <input type="text" ng-model = "restdata.city"></input><br><br>
 <div class="left-col">  PINCODE :</div> <input type="text" ng-model = "restdata.pincode"></input><br><br>
