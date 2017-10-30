@@ -1,3 +1,15 @@
 <div>
 <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
+
+<div class="well">
+  <h5 style="text-align:center"><strong>FOOD ENTRY</strong></h5>
+  <form ng-submit="addfood">
+    FOOD NAME:<input type="text" ng-model=food.foodname/><br>
+    COST : <input type="cost" ng-model="food.cost"><br>
+    DESCRIPTION:<textarea ng-model="food.description"></textarea>
+    <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
+  </form>
+
+</div>
+
 </div>
