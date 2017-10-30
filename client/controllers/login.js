@@ -1,6 +1,6 @@
 var app = angular.module("myApp");
 
-app.controller('loginController', function($scope,$resource, $location, $http) {
+app.controller('loginController', function($scope,$resource, $location, $http,$window) {
   $scope.main = "Login";
   $scope.username = "";
   $scope.password = "";
@@ -9,7 +9,11 @@ app.controller('loginController', function($scope,$resource, $location, $http) {
   hotel_list.query(function(result){
     $scope.hotel_feed = result[0].data;
   })
+  var restaurant = $resource('/getrestaurant');
+  restaurant.query(function(result){
+    $scope.restaurant_feed = result[0].data;
 
+  })
   $scope.login = function() {
     $http({
       url: '/login',
@@ -20,14 +24,19 @@ app.controller('loginController', function($scope,$resource, $location, $http) {
       }
     }).then(function(data) {
       if(data.data.success) {
-        if(data.data.type=="admin")
+        if(data.data.type=="admin"){
         $location.path('/admin');
-        else if(data.data.type=="hotel")
+        $window.localStorage["user"] = $scope.username;
+      }
+        else if(data.data.type=="hotel"){
         $location.path('/hotel');
-        else if(data.data.type=="restaurant")
+        $window.localStorage["user"] = $scope.username;}
+        else if(data.data.type=="restaurant"){
         $location.path('/restaurant');
-        else if(data.data.type=="user")
-        $location.path('/user');
+        $window.localStorage["user"] = $scope.username;}
+        else if(data.data.type=="user"){
+        $location.path('/home');
+        $window.localStorage["user"] = $scope.username;}
       }
       else {
         alert(data.data.message);
@@ -36,6 +45,7 @@ app.controller('loginController', function($scope,$resource, $location, $http) {
   }
 
   $scope.signup = function(data1) {
+    data1.type="user";
     $http({
       url: '/signup',
       method: 'post',
@@ -52,7 +62,7 @@ $scope.registrationdata = {}
 $scope.registrationdata.type = "hotel"
   $scope.register = function(registrationdata){
     $http({
-      url: '/signup',
+      url: '/register',
       method: 'post',
       data: registrationdata
     }).then(function(data) {

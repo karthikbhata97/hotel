@@ -25,30 +25,43 @@ module.exports.login = function(req, res) {
 }
 
 module.exports.signup = function(req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   connection.query('INSERT INTO user(pno, name) value(?, ?)', [req.body.pno, req.body.name], function(err, result) {
+    console.log(result);
     if(err) {
       console.log(err);
       res.send({"success": false, message: "Failed to update user database"});
     }
     else {
-      return populate_login(req.body.username, req.body.password, req.body.type, result[0].userid);
+      // return populate_login(req.body.username, req.body.password, req.body.type, result.userid);
+      connection.query('SELECT userid from user where (pno = ? AND name = ?)',[req.body.pno,req.body.name],function(err,result){
+        console.log(result);
+      connection.query('INSERT INTO login values (?,?,?,?) ',[req.body.username, req.body.password, req.body.type, result[0].userid], function (error, result, fields) {
+        if(error) {
+          console.log(error);
+          res.send({success: false, message: "INVALID USERNAME OR USERNAME ALREADY EXISTS"});
+        }
+        else {
+          res.send({success: true, message: "SUCCESSFULLY REGISTERED"});
+        }
+      });
+      })
     }
   });
 }
 
-
-var populate_login = function(username, password, type, id) {
-  connection.query('INSERT INTO login values (?,?,?) ',[req.body.username,req.body.password,req.body.type], function (error, result, fields) {
-    if(error) {
-      console.log(error);
-      res.send({success: false, message: "INVALID USERNAME OR USERNAME ALREADY EXISTS"});
-    }
-    else {
-      res.send({success: true, message: "SUCCESSFULLY REGISTERED"});
-    }
-  });
-}
+//
+// var populate_login = function(username, password, type, id) {
+//   connection.query('INSERT INTO login values (?,?,?,?) ',[username,password,type,id], function (error, result, fields) {
+//     if(error) {
+//       console.log(error);
+//       res.send({success: false, message: "INVALID USERNAME OR USERNAME ALREADY EXISTS"});
+//     }
+//     else {
+//       res.send({success: true, message: "SUCCESSFULLY REGISTERED"});
+//     }
+//   });
+// }
 
 module.exports.register = function(req, res) {
     connection.query("INSERT INTO login values(?, ?, ?, ?)", [req.body.username, req.body.password, req.body.type, req.body.id], function(err, result) {
