@@ -64,7 +64,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           alert("booked successfully");
         }
         else {
-          alert("Failed");
+
+          alert(JSON.stringify(data.data));
         }
       }, function(err){});
     }
@@ -82,7 +83,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           alert("booked successfully");
         }
         else {
-          alert("Failed");
+          alert(data.data.message);
         }
       }, function(err){});
     }
@@ -101,7 +102,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
               alert("food item added successfully");
             }
             else {
-              alert("Failed");
+              alert(data.data.message);
             }
           }, function(err){});
         }
@@ -120,7 +121,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
               alert("room added successfully");
             }
             else {
-              alert("Failed");
+              alert(data.data.message);
             }
           }, function(err){});
         }
@@ -164,7 +165,7 @@ $scope.restdata = {};
         $scope.newrecord = {}
       }
       else {
-        alert("Failed")
+        alert(data.data.message)
       }
     }, function(err){});
   }
@@ -181,7 +182,7 @@ $scope.restdata = {};
           $scope.newrecord = {}
         }
         else {
-          alert("Failed")
+          alert("data.data.message")
         }
       }, function(err){});
     }
