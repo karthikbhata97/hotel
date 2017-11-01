@@ -81,7 +81,7 @@ module.exports.addhotelrooms = function(req,res) {
     }
     else{
       var hid = result[0].id;
-      connection.query('INSERT  INTO rooms (hid,booked,cost) values (?,?,?)',[hid,0,req.body.cost], function(err,result){
+      connection.query('INSERT  INTO rooms (hid,booked,cost,persons,description) values (?,?,?)',[hid,0,req.body.cost, req.body.persons, req.body.description], function(err,result){
         if(err)
         {
           console.log(err);
@@ -125,14 +125,17 @@ module.exports.getrest = function(req,res) {
 
 module.exports.bookroom = function(req, res) {
   console.log(req.body);
-  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.userid,"user"], function(err, result) {
+  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.username,"user"], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
     }
+    else if(result.length == 0) {
+      res.send({success: false, message: "Failed to fetch user data"});
+    }
     else{
-      req.body.userid = result[0].userid;
-      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
+      var userid = result[0].id;
+      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, userid], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false});
@@ -144,10 +147,13 @@ module.exports.bookroom = function(req, res) {
               res.send({"success": false});
             }
             else {
-              connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [req.body.userid], function(err, result) {
+              connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [userid], function(err, result) {
                 if(err) {
                   console.log(err);
                   res.send({"success": false});
+                }
+                else if(result.length == 0) {
+                  res.send({success: false, message: "Failed to fetch payment data"});
                 }
                 else  {
                   var pid = result[0].pid;
@@ -159,7 +165,7 @@ module.exports.bookroom = function(req, res) {
                     }
                     else {
                       console.log(result);
-                      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, req.body.userid, req.body.rno, pid], function(err, result) {
+                      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid], function(err, result) {
                         if(err) {
                           console.log(err);
                           res.send({"success": false});
@@ -183,28 +189,33 @@ module.exports.bookroom = function(req, res) {
 module.exports.bookrest = function(req, res) {
   console.log(req.body);
   console.log("here");
-  res.end();
   connection.query('SELECT id from login where username= ? AND type= ?', [req.body.username,"user"], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
     }
+    else if(result.length == 0) {
+      res.send({success: false, message: "Failed to fetch restaurant data"});
+    }
     else {
-      var rid = result[0].id;
-      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, rid], function(err, result) {
+      var userid = result[0].id;
+      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.rid], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false});
         }
         else {
-          connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [req.body.userid], function(err, result) {
+          connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [userid], function(err, result) {
             if(err) {
               console.log(err);
               res.send({"success": false});
             }
+            else if(result.length == 0) {
+              res.send({success: false, message: "Failed to fetch restaurant data"});
+            }
             else {
               var pid = result[0].pid;
-              connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, req.body.userid, pid, req.body.foodname], function(err, result) {
+              connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, userid, pid, req.body.foodname], function(err, result) {
                 if(err) {
                   console.log(err);
                   res.send({"success": false});
@@ -245,4 +256,38 @@ module.exports.addfood = function(req, res) {
       });
     }
   });
+};
+
+module.exports.feed = function(req, res) {
+  connection.query('SELECT id from login where username = ? AND type = ?', [req.body.username,"user"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({"success": false, message: "Error in reading user data"});
+    }
+    else if(result.length == 0) {
+      res.send({success: false, message: "Failed to fetch user data"});
+    }
+    else {
+      var userid = result[0].id;
+      connection.query("SELECT * FROM hotelbook WHERE userid = ?", [userid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({"success": false, message: "Error in reading hotel booking data"});
+        }
+        else {
+          var hotel = result;
+          connection.query("SELECT * FROM restbook WHERE userid = ?", [userid], function(err, result) {
+            if(err) {
+              console.log(err);
+              res.send({"success": false, message: "Error in reading hotel booking data"});
+            }
+            else {
+              var rest = result;
+              res.send({success: true, hotel: hotel, restaurant: rest});
+            }
+          })
+        }
+      })
+    }
+  })
 };

@@ -15,7 +15,7 @@ module.exports.login = function(req, res) {
     }
     else {
       if(result[0].password == req.body.password){
-        res.send({success: true, message: "correct" ,type: result[0].type})
+        res.send({success: true, message: "correct", type: result[0].type})
       }
       else {
         res.send({success: false, message: "INVALID credentials!"});
