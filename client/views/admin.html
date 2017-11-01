@@ -2,12 +2,12 @@
   <style>
   #menu {
      float:left;
-     width:550px;
+     width:500px;
  }
 
  #content {
      float:right;
-     width:550px;
+     width:500px;
  }
 .left-col {
   float: left;
@@ -19,11 +19,11 @@
  <h1 style="text-align:center;margin-left:180px;"><font color="white">HOTEL MANAGEMENT SYSTEM</font></h1>
 <hr>
 
-<div id="menu" class="well" style="margin-left:25px">
+<div id="menu" class="well" style="margin-left:50px">
     <h4 style="text-align:center"><u>HOTEL REGISTRATION</u></h4>
     <form ng-submit="add_hotel(hoteldata)">
 
-  <div class="left-col">  HOTEL NAME :</div> <input type="text" ng-model = "hoteldata.name"></input><br><br>
+  <div class="left-col">  HOTEL_NAME :</div> <input type="text" ng-model = "hoteldata.name"></input><br><br>
   <div class="left-col">  ROOMS : </div><input type="text" ng-model = "hoteldata.rooms"></input><br><br>
   <div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "hoteldata.pno" pattern="[789][0-9]{9}" placeholder="9132456688"></input><br><br>
   <div class="left-col">  LANE :</div> <input type="text" ng-model = "hoteldata.lane"></input><br><br>
@@ -32,8 +32,8 @@
   <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
 </form>
 </div>
-<div id="content" class="well">
-  <h4 style="text-align:center"><u>RESTAURANT REGISTRATION</u></h4>
+<div id="content" class="well" style="margin-right:100px">
+  <h4 style="text-align:center"><u>RESTAURANT_REGISTRATION</u></h4>
   <form ng-submit="add_restaurant(restdata)">
 <div class="left-col">  RESTAURANT NAME :</div> <input type="text" ng-model = "restdata.name"></input><br><br>
 <div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "restdata.pno" pattern="[789][0-9]{9}" placeholder="9132456688"></input><br><br>

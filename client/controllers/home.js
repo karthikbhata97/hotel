@@ -13,10 +13,12 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       $scope.restaurant_feed = result[0].data;
     })
 
-    // var user_feed = $resource('/getuserfeed?username='+$window.localStorage["user"]);
-    // user_feed.query(function(result){
-    //   $scope.user_feed = result[0].data;
-    // })
+    var user_feed = $resource('/getuserfeed?username='+$window.localStorage["user"]);
+    user_feed.query(function(result){
+      $scope.user_feed.hotel = result[0].hotel;
+      alert(JSON.stringify($scope.user_feed.hotel));
+       $scope.user_feed.restaurant = result[0].restaurant;
+    })
 
     $scope.get_menu = function(data) {
       $http({
@@ -120,6 +122,23 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }, function(err){});
         }
 
+        $scope.changepassword = function(changepass) {
+            changepass.username = $window.localStorage["user"];
+          $http({
+            url: '/changepassword',
+            method: 'post',
+            data: restdata
+          }).then(function(data) {
+            if(data.data.success) {
+              alert("PASSWORD CHANGES SUCCESSFULLY");
+              $scope.newrecord = {}
+            }
+            else {
+              alert("FAILED TO CHANGE PASSWORD")
+            }
+          }, function(err){});
+        }
+
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {
@@ -163,4 +182,7 @@ $scope.restdata = {};
         }
       }, function(err){});
     }
+
+
+
 })
