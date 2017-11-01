@@ -3,6 +3,7 @@ var app = angular.module("myApp");
 
 app.controller("homeController", function($scope, $http, $resource, $route,$window) {
 
+    // var $scope.user_feed = {}
     var hotel_list = $resource('/gethotels');
     hotel_list.query(function(result){
       $scope.hotel_feed = result[0].data;
@@ -13,11 +14,13 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       $scope.restaurant_feed = result[0].data;
     })
 
-    var user_feed = $resource('/getuserfeed?username='+$window.localStorage["user"]);
+    var user_feed = $resource('/userfeed?username='+$window.localStorage["user"]);
     user_feed.query(function(result){
-      $scope.user_feed.hotel = result[0].hotel;
-      alert(JSON.stringify($scope.user_feed.hotel));
-       $scope.user_feed.restaurant = result[0].restaurant;
+      $scope.user_hotel_feed = result[0].hotel;
+      $scope.user_restaurant_feed = result[0].restaurant;
+
+    //   alert(JSON.stringify($scope.user_restaurant_feed));
+    //    $scope.user_feed.restaurant = result[0].restaurant;
     })
 
     $scope.get_menu = function(data) {
@@ -127,7 +130,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           $http({
             url: '/changepassword',
             method: 'post',
-            data: restdata
+            data: changepass
           }).then(function(data) {
             if(data.data.success) {
               alert("PASSWORD CHANGES SUCCESSFULLY");

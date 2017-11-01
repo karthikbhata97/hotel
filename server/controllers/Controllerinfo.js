@@ -264,28 +264,28 @@ module.exports.userfeed = function(req, res) {
   connection.query('SELECT id from login where username = ? AND type = ?', [username,"user"], function(err, result) {
     if(err) {
       console.log(err);
-      res.send({"success": false, message: "Error in reading user data"});
+      res.send([{"success": false, message: "Error in reading user data"}]);
     }
     else if(result.length == 0) {
-      res.send({success: false, message: "Failed to fetch user data"});
+      res.send([{success: false, message: "Failed to fetch user data"}]);
     }
     else {
       var userid = result[0].id;
       connection.query("SELECT * FROM hotelbook WHERE userid = ?", [userid], function(err, result) {
         if(err) {
           console.log(err);
-          res.send({"success": false, message: "Error in reading hotel booking data"});
+          res.send([{"success": false, message: "Error in reading hotel booking data"}]);
         }
         else {
           var hotel = result;
           connection.query("SELECT * FROM restbook WHERE userid = ?", [userid], function(err, result) {
             if(err) {
               console.log(err);
-              res.send({"success": false, message: "Error in reading hotel booking data"});
+              res.send([{"success": false, message: "Error in reading hotel booking data"}]);
             }
             else {
               var rest = result;
-              res.send({success: true, hotel: hotel, restaurant: rest});
+              res.send([{success: true, hotel: hotel, restaurant: rest}]);
             }
           })
         }
