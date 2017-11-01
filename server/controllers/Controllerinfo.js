@@ -345,3 +345,31 @@ module.exports.restfeed = function(req, res) {
     }
   });
 };
+
+module.exports.changepassword = function(req, res) {
+  connection.query('SELECT password from login where username = ?', [req.body.username], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({success: false, message: "Failed to run query"})
+    }
+    else if (result.length==0) {
+      res.send({success: false, message: "Failed to fetch user details"})
+    }
+    else {
+      if(result[0].password != req.body.password) {
+        res.send({success: false, message: "Wrong password"})
+      }
+      else {
+        connection.query('UPDATE login SET password = ? where username = ?', [req.body.newpassword, req.body.username], function(err, result) {
+          if(err) {
+            console.log(err);
+            res.send({success: false, message: "Failed to change password"})
+          }
+          else {
+            res.send({success: true, message: "Changed successfully"})
+          }
+        })
+      }
+    }
+  });
+};
