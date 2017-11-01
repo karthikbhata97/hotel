@@ -2,11 +2,11 @@
   <style>
   #outPopUp {
   position: absolute;
-  width: 300px;
+  width: 450px;
   height: 500px;
   z-index: 15;
   top: 35%;
-  left: 40%;
+  left: 44%;
   margin: -100px 0 0 -150px;
 
 }
@@ -14,9 +14,11 @@
 
 
 
-<h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
+  <a href="#/login" style="float:right"><button>LOGOUT</button></a>
+  <button type="button" style="float:right" data-toggle="modal" data-target="#myModal">CHANGE PASSWORD</button>
+  <h1 style="float: center;margin-left: 325px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
 
-<div id="outPopUp" class="well" style="width:500px">
+<div id="outPopUp" class="well" >
   <h5 style="text-align:center"><strong><u>FOOD ENTRY</u></strong></h5><hr>
   <form ng-submit="addfood(food)" >
     <label style="margin-right:3%">FOOD_NAME:</label><input type="text" ng-model="food.foodname"><br><br>
@@ -25,6 +27,36 @@
     <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
   </form>
 
+</div>
+<div class="container">
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" >
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">CHANGE PASSWORD</h4>
+      </div>
+      <div class="modal-body">
+        <form ng-submit="changepassword(changepass)">
+        <label  style="margin-right:15%">CURRENT_PASSWORD: </label>
+        <input type="password" ng-model="changepass.password">
+        <br><br>
+        <label  style="margin-right:15%">NEW_PASSWORD: </label>
+        <input type="password" ng-model="changepass.password">
+        <br><br>
+        <input type="submit" value="submit" name="submit"/>
+
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>
 
 </div>
