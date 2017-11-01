@@ -1,22 +1,30 @@
-<div>
+
+
+<div class="background">
   <style>
   #outPopUp {
   position: absolute;
-  width: 300px;
-  height: 450px;
+  width: 450px;
+  height: 500px;
   z-index: 15;
   top: 35%;
-  left: 40%;
+  left: 44%;
   margin: -100px 0 0 -150px;
 
 }
   </style>
+  <a href="#/login" style="float:right"><button>LOGOUT</button></a>
 <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
 
-<div id="outPopUp" class="well" style="width:500px">
+<hr>
+
+<div id="outPopUp" class="well" >
   <h5 style="text-align:center"><strong><u>ROOMS ADDITION</u></strong></h5><hr>
   <form ng-submit="addrooms(rooms)">
-    <label style="margin-right:3%">COST : </label><input type="cost" ng-model="rooms.cost"><br><br>
+    <label style="margin-right:20%">COST : </label><input type="cost" ng-model="rooms.cost"><br><br>
+    <label style="margin-right:20%">NO_OF_PERSON(S): </label><input type="cost" ng-model="rooms.persons"><br><br>
+    <label style="margin-right:20%">DESCRIPTION: </label><textarea ng-model="rooms.description" rows="9" column="1000"></textarea><br><br>
+
     <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
   </form>
 
