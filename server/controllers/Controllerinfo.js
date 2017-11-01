@@ -195,11 +195,11 @@ module.exports.bookrest = function(req, res) {
       res.send({"success": false});
     }
     else if(result.length == 0) {
-      res.send({success: false, message: "Failed to fetch restaurant data"});
+      res.send({success: false, message: "Failed to fetch user data"});
     }
     else {
       var userid = result[0].id;
-      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.rid], function(err, result) {
+      connection.query('INSERT INTO payment (amount, userid)  values(?, ?)', [req.body.cost, userid], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false, message: "Failed to create payment"});
