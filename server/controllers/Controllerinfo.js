@@ -258,8 +258,10 @@ module.exports.addfood = function(req, res) {
   });
 };
 
-module.exports.feed = function(req, res) {
-  connection.query('SELECT id from login where username = ? AND type = ?', [req.body.username,"user"], function(err, result) {
+module.exports.userfeed = function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var username = url_parts.query.username;
+  connection.query('SELECT id from login where username = ? AND type = ?', [username,"user"], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false, message: "Error in reading user data"});

@@ -35,6 +35,7 @@ app.post('/register',Controllerlogin.register);
 app.post('/bookroom',Controllerinfo.bookroom);
 app.post('/bookrestaurant',Controllerinfo.bookrest);
 app.post('/addfood',Controllerinfo.addfood);
+app.get('/userfeed',Controllerinfo.userfeed);
 
 
 app.get('/', function(req, res) {
