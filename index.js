@@ -36,6 +36,8 @@ app.post('/bookroom',Controllerinfo.bookroom);
 app.post('/bookrestaurant',Controllerinfo.bookrest);
 app.post('/addfood',Controllerinfo.addfood);
 app.get('/userfeed',Controllerinfo.userfeed);
+app.get('/hotelfeed',Controllerinfo.hotelfeed);
+app.get('/restaurantfeed',Controllerinfo.restfeed);
 
 
 app.get('/', function(req, res) {

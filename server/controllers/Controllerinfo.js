@@ -293,3 +293,55 @@ module.exports.userfeed = function(req, res) {
     }
   })
 };
+
+module.exports.hotelfeed = function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var username = url_parts.query.username;
+  connection.query('SELECT id from login where username = ? AND type = ?', [username, "hotel"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({success: false, message: "Failed to run query"})
+    }
+    else if (result.length==0) {
+      res.send({success: false, message: "Failed to fetch hotel details"})
+    }
+    else {
+      var hid = result[0].id;
+      connection.query('SELECT * FROM rooms WHERE hid = ?', [hid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({success: false, message: "Failed to run query"})
+        }
+        else {
+          res.send({success: true, data: result});
+        }
+      })
+    }
+  });
+};
+
+module.exports.restfeed = function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var username = url_parts.query.username;
+  connection.query('SELECT id from login where username = ? AND type = ?', [username, "restaurant"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({success: false, message: "Failed to run query"})
+    }
+    else if (result.length==0) {
+      res.send({success: false, message: "Failed to fetch restaurant details"})
+    }
+    else {
+      var rid = result[0].id;
+      connection.query('SELECT * FROM food WHERE rid = ?', [rid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({success: false, message: "Failed to run query"})
+        }
+        else {
+          res.send({success: true, data: result});
+        }
+      })
+    }
+  });
+};
