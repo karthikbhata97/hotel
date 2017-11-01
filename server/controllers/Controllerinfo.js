@@ -71,13 +71,16 @@ module.exports.gethotelrooms = function(req,res) {
 //ADD ROOMS FOR HOTELS
 module.exports.addhotelrooms = function(req,res) {
   // console.log(req.body);
-  connection.query('SELECT hid from hotel where (name = ?) ',[req.body.name], function(err,result){
+  connection.query('SELECT id from login where (username = ? and type = ?) ',[req.body.username, "hotel"], function(err,result){
     if(err) {
       console.log(err);
       res.send({success: false});
     }
+    else if(result.length == 0) {
+      res.send({success: false, message: "Failed to fetch hotel data"});
+    }
     else{
-      var hid = result[0].hid;
+      var hid = result[0].id;
       connection.query('INSERT  INTO rooms (hid,booked,cost) values (?,?,?)',[hid,0,req.body.cost], function(err,result){
         if(err)
         {
@@ -181,14 +184,14 @@ module.exports.bookrest = function(req, res) {
   console.log(req.body);
   console.log("here");
   res.end();
-  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.userid,"user"], function(err, result) {
+  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.username,"user"], function(err, result) {
     if(err) {
       console.log(err);
       res.send({"success": false});
     }
     else {
-      req.body.userid = result[0].id;
-      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.userid], function(err, result) {
+      var rid = result[0].id;
+      connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, rid], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false});
@@ -219,17 +222,22 @@ module.exports.bookrest = function(req, res) {
 };
 
 module.exports.addfood = function(req, res) {
-  connection.query('SELECT id from login where username= ? AND type= ?', [req.body.userid,"restaurant"], function(err, result) {
+  connection.query('SELECT id from login where username = ? AND type = ?', [req.body.username,"restaurant"], function(err, result) {
     if(err) {
       console.log(err);
-      res.send({"success": false});
+      res.send({"success": false, message: "Error in reading restaurant data"});
+    }
+    else if(result.length == 0) {
+      res.send({success: false, message: "Failed to fetch restaurant data"});
     }
     else {
-      req.body.userid = result[0].id;
-      connection.query('INSERT INTO food(rid, foodname, description, cost)', [req.body.userid, req.body.foodname, req.body.description, req.body.cost], function(err, result) {
+      var rid = result[0].id;
+      console.log(rid);
+      console.log(req.body);
+      connection.query('INSERT INTO food VALUES(?, ?, ?, ?)', [rid, req.body.foodname, req.body.description, req.body.cost], function(err, result) {
         if(err) {
           console.log(err);
-          res.send({"success": false});
+          res.send({"success": false, message: "Error adding food"});
         }
         else {
           res.send({"success": true, "message": "New food added"});

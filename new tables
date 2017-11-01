@@ -16,7 +16,7 @@ create table food(fid int ,rid int, foodname varchar(20), description varchar(10
 
 create table payment(pid int auto_increment, amount int, userid int, primary key(pid), foreign key(userid) references user(userid));
 
-create table login(username varchar(20), password varchar(20), type enum('hotel', 'restaurant', 'admin', 'user'), id int, primary key(username));
+create table login(username varchar(20), password varchar(20), type enum('hotel', 'restaurant', 'admin', 'user'), id int, primary key(username, type));
 
 create table rooms(rno int auto_increment, hid int, booked bool, cost integer, primary key(rno), foreign key(hid) references hotel(hid));
 
