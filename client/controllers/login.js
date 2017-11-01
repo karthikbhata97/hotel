@@ -29,10 +29,10 @@ app.controller('loginController', function($scope,$resource, $location, $http,$w
         $window.localStorage["user"] = $scope.username;
       }
         else if(data.data.type=="hotel"){
-        $location.path('/hotel');
+        $location.path('/addroom');
         $window.localStorage["user"] = $scope.username;}
         else if(data.data.type=="restaurant"){
-        $location.path('/restaurant');
+        $location.path('/addfood');
         $window.localStorage["user"] = $scope.username;}
         else if(data.data.type=="user"){
         $location.path('/home');
