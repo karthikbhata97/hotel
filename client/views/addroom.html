@@ -1,0 +1,25 @@
+<div>
+  <style>
+  #outPopUp {
+  position: absolute;
+  width: 300px;
+  height: 450px;
+  z-index: 15;
+  top: 35%;
+  left: 40%;
+  margin: -100px 0 0 -150px;
+
+}
+  </style>
+<h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
+
+<div id="outPopUp" class="well" style="width:500px">
+  <h5 style="text-align:center"><strong><u>ROOMS ADDITION</u></strong></h5><hr>
+  <form ng-submit="addrooms(rooms)">
+    <label style="margin-right:3%">COST : </label><input type="cost" ng-model="rooms.cost"><br><br>
+    <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
+  </form>
+
+</div>
+
+</div>

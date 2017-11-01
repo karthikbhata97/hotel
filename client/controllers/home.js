@@ -32,8 +32,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       }, function(err){});
     }
 
-        $scope.get_rooms = function(data) {
-          $http({
+    $scope.get_rooms = function(data) {
+      $http({
             url: '/gethotelrooms?hid='+ data.hid,
             method: 'get'
           }).then(function(data) {
@@ -44,7 +44,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
               alert("Failed to fetch details");
             }
           }, function(err){});
-        }
+      }
 
     $scope.book_restaurant = function(data){
       data.username = $window.localStorage["user"];
@@ -90,7 +90,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           $http({
             url: '/addfood',
             method: 'post',
-            data:data
+            data:food
           }).then(function(data) {
             if(data.data.success) {
               alert("food item added successfully");
@@ -100,6 +100,26 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
             }
           }, function(err){});
         }
+
+        $scope.addrooms = function(rooms){
+            // console.log("here");
+          rooms.username = $window.localStorage["user"];
+        //   alert(food.username);
+          alert(JSON.stringify(rooms));
+          $http({
+            url: '/addhotelrooms',
+            method: 'post',
+            data:rooms
+          }).then(function(data) {
+            if(data.data.success) {
+              alert("room added successfully");
+            }
+            else {
+              alert("Failed");
+            }
+          }, function(err){});
+        }
+
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {
