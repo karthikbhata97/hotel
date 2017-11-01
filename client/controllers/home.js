@@ -13,10 +13,10 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       $scope.restaurant_feed = result[0].data;
     })
 
-    var user_feed = $resource('/getuserfeed?userid='+$window.localStorage["user"]);
-    user_feed.query(function(result){
-      $scope.user_feed = result[0].data;
-    })
+    // var user_feed = $resource('/getuserfeed?username='+$window.localStorage["user"]);
+    // user_feed.query(function(result){
+    //   $scope.user_feed = result[0].data;
+    // })
 
     $scope.get_menu = function(data) {
       $http({
@@ -47,8 +47,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
         }
 
     $scope.book_restaurant = function(data){
-      data.userid = $window.localStorage["user"];
-      alert(data.userid);
+      data.username = $window.localStorage["user"];
+      alert(data.username);
       alert(JSON.stringify(data));
       $http({
         url: '/bookrestaurant',
@@ -65,8 +65,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     }
 
     $scope.book_room = function(data){
-      data.userid = $window.localStorage["user"];
-      alert(data.userid);
+      data.username = $window.localStorage["user"];
+      alert(data.username);
       alert(JSON.stringify(data));
       $http({
         url: '/bookroom',
@@ -82,11 +82,11 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       }, function(err){});
     }
 
-
         $scope.addfood = function(food){
-          food.userid = $window.localStorage["user"];
-          alert(food.userid);
-          alert(JSON.stringify(food));
+            // console.log("here");
+          food.username = $window.localStorage["user"];
+        //   alert(food.username);
+        //   alert(JSON.stringify(food));
           $http({
             url: '/addfood',
             method: 'post',
@@ -100,8 +100,6 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
             }
           }, function(err){});
         }
-
-
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {
@@ -145,8 +143,4 @@ $scope.restdata = {};
         }
       }, function(err){});
     }
-
-
-
-
 })
