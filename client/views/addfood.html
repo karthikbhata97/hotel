@@ -3,7 +3,7 @@
   #outPopUp {
   position: absolute;
   width: 300px;
-  height: 450px;
+  height: 500px;
   z-index: 15;
   top: 35%;
   left: 40%;
@@ -11,14 +11,17 @@
 
 }
   </style>
-<h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
+
+
+
+<h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
 
 <div id="outPopUp" class="well" style="width:500px">
   <h5 style="text-align:center"><strong><u>FOOD ENTRY</u></strong></h5><hr>
   <form ng-submit="addfood(food)" >
     <label style="margin-right:3%">FOOD_NAME:</label><input type="text" ng-model="food.foodname"><br><br>
     <label style="margin-right:3%">COST : </label><input type="cost" ng-model="food.cost"><br><br>
-    <label style="margin-right:3%">DESCRIPTION:</label><textarea ng-model="food.description" rows="9" column="1000"></textarea><br>
+    <label style="margin-right:3%">DESCRIPTION:</label><textarea ng-model="food.description" rows="9" column="1000"></textarea><br><br>
     <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
   </form>
 

@@ -1,0 +1,35 @@
+<div>
+<div>
+  <button style="margin-left: 500px; margin-top: 150px" onclick="document.getElementById("01").style.display='block'">Login as Admin</button>
+</div>
+
+
+<script>
+var modal = document.getElementById('01');
+window.onclick = function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
+</script>
+
+<div id="01" class="modal" style="display:none">
+
+      <form class="formarea" method="post" ng-submit="login()">
+      <div class="container">
+
+        <h2>Login as Category Admin</h2></br>
+        <label style="font-family: sans-serif"><b>Username</b></label><br><br>
+        <input type="text" name="username" ng-model="username" required><br><br>
+
+        <br><label style="font-family: sans-serif"><b>Password</b></label><br><br>
+        <input type="password" name="password" ng-model="password" required><br><br>
+
+        <div class="form-actions">
+            <button type="submit" class="loginbtn">LOG IN</button>
+        </div>
+      </div>
+      </form>
+
+</div>
+</div>

@@ -1,6 +1,7 @@
 var app = angular.module("myApp");
 
 app.controller('loginController', function($scope,$resource, $location, $http,$window) {
+  
   $scope.main = "Login";
   $scope.username = "";
   $scope.password = "";
@@ -66,10 +67,10 @@ $scope.registrationdata.type = "hotel"
       method: 'post',
       data: registrationdata
     }).then(function(data) {
-      alert(data.data.message)
       if(data.data.success) {
         alert("REGISTRATION SUCCESSFULL");
         $location.path('/register');
+
       }
       else {
         alert("REGISTRATION FAILED");
