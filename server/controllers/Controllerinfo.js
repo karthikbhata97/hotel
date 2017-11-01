@@ -55,7 +55,7 @@ module.exports.getfood = function(req,res) {
 module.exports.gethotelrooms = function(req,res) {
   var url_parts = url.parse(req.url, true);
   var hid = url_parts.query.hid;
-  connection.query('SELECT * FROM rooms WHERE hid in (SELECT hid FROM hotel WHERE (hid = ? AND rooms>0)) AND booked = 0',[hid],function(err,result){
+  connection.query('SELECT * FROM rooms WHERE hid = ?',[hid],function(err,result){
     if(err)
     {
       console.log(err);
