@@ -202,7 +202,7 @@ module.exports.bookrest = function(req, res) {
       connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, req.body.rid], function(err, result) {
         if(err) {
           console.log(err);
-          res.send({"success": false});
+          res.send({"success": false, message: "Failed to create payment"});
         }
         else {
           connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [userid], function(err, result) {
@@ -218,7 +218,7 @@ module.exports.bookrest = function(req, res) {
               connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, userid, pid, req.body.foodname], function(err, result) {
                 if(err) {
                   console.log(err);
-                  res.send({"success": false});
+                  res.send({"success": false, message: "Failed to book"});
                 }
                 else {
                   res.send({"success": true, "message": "Booked successfully"});
