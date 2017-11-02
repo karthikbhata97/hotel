@@ -19,9 +19,15 @@ SELECT HOTEL:    <select ng-model="data.hid">
     <hr>
 
     <div class="article" ng-repeat="x in rooms">
-      <strong>ROOM NO:</strong>{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <strong>COST:</strong>{{x.cost}}
+      <strong>ROOM NO:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>COST:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.cost}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>PERSON (MAX):</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.persons}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <br>
+      <strong>DESCRIPTION:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.description}}
+
+
       <button style="float:right;" ng-click="book_room(x)">ORDER</button>
+      <hr>
       <!-- {{x}} -->
       <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
       <!-- <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>
