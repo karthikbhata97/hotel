@@ -19,17 +19,51 @@
 <h1 style="float: center;margin-left: 400px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
 
 <hr>
+<div class="well">
+<!-- {{my_hotel_feed}} -->
+      <div class="topnav">
+        <a href="javascript:void(0)" onclick="openCity('HOFEED')"><b>FEED</b></a>
+        <a href="javascript:void(0)" onclick="openCity('ADD ROOM')"><b>ADD ROOMS</b></a>
+      </div>
+      <br>
+  <div id="ADD ROOM" class="w3-container city" style="display:none;">
+    <div class="well" style="width:500px;margin-left:30%;">
+      <h5 style="text-align:center"><strong><u>ROOMS ADDITION</u></strong></h5><hr>
+      <form ng-submit="addrooms(rooms)">
+        <label style="margin-left:3%">COST : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="cost" ng-model="rooms.cost"><br><br>
+        <label style="margin-left:3%">NO_OF_PERSON(S): </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="cost" ng-model="rooms.persons"><br><br>
+        <label style="margin-left:3%">DESCRIPTION: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea ng-model="rooms.description" rows="7" column="1000" maxlength="150"></textarea><br><br>
 
-<div id="outPopUp" class="well" >
-  <h5 style="text-align:center"><strong><u>ROOMS ADDITION</u></strong></h5><hr>
-  <form ng-submit="addrooms(rooms)">
-    <label style="margin-right:20%">COST : </label><input type="cost" ng-model="rooms.cost"><br><br>
-    <label style="margin-right:20%">NO_OF_PERSON(S): </label><input type="cost" ng-model="rooms.persons"><br><br>
-    <label style="margin-right:20%">DESCRIPTION: </label><textarea ng-model="rooms.description" rows="9" column="1000" maxlength="100"></textarea><br><br>
+        <input type="submit" value="SUBMIT" style="margin-left:50%"></input>
+      </form>
+    </div>
+</div>
+<div id="HOFEED" class="w3-container city" >
 
-    <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
-  </form>
+  <table id="customers">
 
+    <tr>
+      <th>ROOM NO</th>
+      <th>MAX PEOPLE</th>
+      <th>COST </th>
+      <th>STATUS</th>
+      <th>DESCRIPTION</th>
+
+    </tr>
+    <tr ng-repeat="item in my_hotel_feed">
+      <td>{{item.rno}}</td>
+      <td>{{item.persons}}</td>
+      <td>Rs:{{item.cost}}</td>
+      <td>
+        <div ng-if="item.booked==1">BOOKED</div>
+        <div ng-if="item.booked==0">NOT BOOKED</div>
+
+        <!-- <input type="button" value="cancel" ng-click="cancellationfood(item)"> -->
+      </td>
+      <td><textarea rows="3" cols="50" style="resize:none">{{item.description}}</textarea></td>
+    </tr>
+  </table>
+</div>
 </div>
 <div class="container">
 <div class="modal fade" id="myModal" role="dialog">

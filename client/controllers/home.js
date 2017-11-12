@@ -5,7 +5,17 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     $scope.currentbooking = {}
 
+    var my_hotel_feed = $resource('/hotelfeed?username='+$window.localStorage["user"]);
+    my_hotel_feed.query(function(result){
+      // alert(JSON.stringify(result))
+      $scope.my_hotel_feed = result[0].data;
+  });
 
+  var my_restaurant_feed = $resource('/restaurantfeed?username='+$window.localStorage["user"]);
+  my_restaurant_feed.query(function(result){
+    // alert(JSON.stringify(result))
+    $scope.my_restaurant_feed = result[0].data;
+});
     // var $scope.user_feed = {}
     var hotel_list = $resource('/gethotels');
     hotel_list.query(function(result){
@@ -164,7 +174,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
         $scope.cancellationfood = function(item)
         {
-            if(item.bookdate>new Date())
+            if(new Date(item.bookdate)>new Date())
             {
                 alert("CANNOT CANCEL ORDER");
                 return;
@@ -178,7 +188,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }).then(function(data) {
             if(data.data.success) {
               alert("ORDER CANCELLED SUCCESSFULLY");
-              window.reload();
+              location.reload();
             }
             else {
               alert("FAILED TO CANCEL ORDER")
@@ -189,17 +199,12 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
         $scope.cancellationroom = function(item)
         {
-            // alert(new Date() + new Date(item.checkin) )
             if(new Date()>new Date(item.checkin))
             {
                 alert("CANNOT PROCESS CANCELLATION BEYOND CHECK-IN DATE");
                 return;
             }
-            // else if(new Date()>=new Date(item.checkin)) {
-            //     alert("CANNOT PROCESS CANCELLATION BEYOND CHECKIN DATE");
-            //     return;
-            // }
-            // alert(JSON.stringify(item));
+
           $http({
             url: '/cancelroom',
             method: 'post',
@@ -207,7 +212,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }).then(function(data) {
             if(data.data.success) {
               alert("BOOKING CANCELLED SUCCESSFULLY");
-              window.reload();
+             location.reload();
             }
             else {
               alert(data.data.message);

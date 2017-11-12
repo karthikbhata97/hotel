@@ -4,60 +4,7 @@
   <a href="#/hotel" style="float:right"><button>BOOK HOTEL</button></a>&nbsp;
   <a href="#/restaurant" style="float:right"><button>BOOK RESTAURANT</button></a>
   <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
-  <style>
-  .topnav {
-  overflow: hidden;
-  background-color: #333;
-}
 
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-</style>
-  <style>
-  #customers {
-      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-  }
-
-  #customers td, #customers th {
-      border: 1px solid #ddd;
-      padding: 8px;
-  }
-
-  #customers tr:nth-child(even){background-color: #f2f2f2;}
-
-  #customers tr:hover {background-color: #ddd;}
-
-  #customers th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #3A3D3E;
-      color: white;
-  }
-
-  a:active {
-      background-color: yellow;
-  }
-  </style>
   <hr>
   <div class="well">
     <h4 style="text-align:center"><strong><u>USER DASHBOARD</u></strong></h4>
@@ -107,7 +54,7 @@
     <td>{{item.name}}</td>
     <td>{{item.foodname}}</td>
     <td>{{item.cost}}</td>
-    <td>{{item.bookdate}}</td>
+    <td>{{item.bookdate | date:'MM-dd-yyyy'}}</td>
     <td><input type="button" value="cancel" ng-click="cancellationfood(item)"></td>
   </tr>
 </table>

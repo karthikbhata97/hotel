@@ -210,7 +210,7 @@ module.exports.bookrest = function(req, res) {
     }
     else {
       var userid = result[0].id;
-      connection.query('INSERT INTO payment (amount, userid, bookdate)  values(?, ?, ?)', [req.body.cost, userid, bookdate], function(err, result) {
+      connection.query('INSERT INTO payment (amount, userid)  values(?, ?)', [req.body.cost, userid, bookdate], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false, message: "Failed to create payment"});
@@ -226,7 +226,7 @@ module.exports.bookrest = function(req, res) {
             }
             else {
               var pid = result[0].pid;
-              connection.query("INSERT INTO restbook(rid, userid, pid, foodname) values(?, ?, ?, ?)", [req.body.rid, userid, pid, req.body.foodname], function(err, result) {
+              connection.query("INSERT INTO restbook(rid, userid, pid, foodname, bookdate) values(?, ?, ?, ?, ?)", [req.body.rid, userid, pid, req.body.foodname,bookdate], function(err, result) {
                 if(err) {
                   console.log(err);
                   res.send({"success": false, message: "Failed to book"});
@@ -311,20 +311,21 @@ module.exports.hotelfeed = function(req, res) {
   connection.query('SELECT id from login where username = ? AND type = ?', [username, "hotel"], function(err, result) {
     if(err) {
       console.log(err);
-      res.send({success: false, message: "Failed to run query"})
+      res.send([{success: false, message: "Failed to run query"}])
     }
     else if (result.length==0) {
-      res.send({success: false, message: "Failed to fetch hotel details"})
+      res.send([{success: false, message: "Failed to fetch hotel details"}])
     }
     else {
       var hid = result[0].id;
       connection.query('SELECT * FROM rooms WHERE hid = ?', [hid], function(err, result) {
         if(err) {
           console.log(err);
-          res.send({success: false, message: "Failed to run query"})
+          res.send([{success: false, message: "Failed to run query"}])
         }
         else {
-          res.send({success: true, data: result});
+          console.log(result);
+          res.send([{success: true, data: result}]);
         }
       })
     }
@@ -350,7 +351,7 @@ module.exports.restfeed = function(req, res) {
           res.send({success: false, message: "Failed to run query"})
         }
         else {
-          res.send({success: true, data: result});
+          res.send([{success: true, data: result}]);
         }
       })
     }
