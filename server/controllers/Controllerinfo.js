@@ -53,10 +53,13 @@ module.exports.getfood = function(req,res) {
 
 //GET ROOMS BASED ON HOTEL NAME
 module.exports.gethotelrooms = function(req,res) {
-  var url_parts = url.parse(req.url, true);
-  var hid = url_parts.query.hid;
-  var checkin = url_parts.query.checkin;
-  var checkout = url_parts.query.checkout;
+  console.log(req.body);
+  // var url_parts = url.parse(req.url, true);
+  var hid = req.body.hid;
+  var checkin = new Date(req.body.checkin).toISOString().slice(0,19).replace('T',' ');
+    var checkout = new Date(req.body.checkout).toISOString().slice(0,19).replace('T',' ');
+  // console.log(checkin.substring(0,10));
+  // var checkout = req.body.checkout
   connection.query('SELECT * FROM rooms WHERE rno NOT IN (SELECT rno FROM hotelbook WHERE hid = ? AND (checkin <= ? OR checkout >= ?)) AND hid = ?',[hid, checkout, checkin, hid],function(err,result){
     if(err)
     {
@@ -152,7 +155,7 @@ module.exports.bookroom = function(req, res) {
               connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [userid], function(err, result) {
                 if(err) {
                   console.log(err);
-                  res.send({"success": false});
+                  res.send({"success": false,"message":"booking failed"});
                 }
                 else if(result.length == 0) {
                   res.send({success: false, message: "Failed to fetch payment data"});
@@ -163,11 +166,15 @@ module.exports.bookroom = function(req, res) {
                   connection.query('UPDATE rooms set booked = 1 where rno = ?', [req.body.rno], function(err, result) {
                     if(err) {
                       console.log(err);
-                      res.send({"success": false});
+                      res.send({"success": false,"message":"booking failed"});
                     }
                     else {
                       console.log(result);
-                      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid) values(?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid], function(err, result) {
+
+                      var checkin = new Date(req.body.checkin).toISOString().slice(0,19).replace('T',' ');
+                        var checkout = new Date(req.body.checkout).toISOString().slice(0,19).replace('T',' ');
+
+                      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid,checkin,checkout) values(?, ?, ?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid,checkin,checkout], function(err, result) {
                         if(err) {
                           console.log(err);
                           res.send({"success": false});

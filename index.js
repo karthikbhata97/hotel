@@ -27,7 +27,7 @@ app.get('/foodfeed',Controllerinfo.getfood);
 app.get('/getrestaurant', Controllerinfo.getrest);
 app.post('/addhotel', Controllerinfo.addhotel);
 app.get('/gethotels',Controllerinfo.gethotels);
-app.get('/gethotelrooms',Controllerinfo.gethotelrooms);
+app.post('/gethotelrooms',Controllerinfo.gethotelrooms);
 app.post('/addhotelrooms',Controllerinfo.addhotelrooms);
 app.post('/addrestaurant',Controllerinfo.addrest);
 app.post('/bookrestaurant',Controllerinfo.bookrest);

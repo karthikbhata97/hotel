@@ -3,6 +3,8 @@ var app = angular.module("myApp");
 
 app.controller("homeController", function($scope, $http, $resource, $route,$window) {
 
+    $scope.currentbooking = {}
+
     // var $scope.user_feed = {}
     var hotel_list = $resource('/gethotels');
     hotel_list.query(function(result){
@@ -39,10 +41,15 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     }
 
     $scope.get_rooms = function(data) {
-      alert(JSON.stringify(data));
+      data.checkin.setTime(data.checkin.getTime() - new Date().getTimezoneOffset()*60*1000);
+       data.checkout.setTime(data.checkout.getTime() - new Date().getTimezoneOffset()*60*1000);
+       alert(JSON.stringify(data));
+      $scope.currentbooking = data;
+
       $http({
-            url: '/gethotelrooms?hid='+ data.hid + '&checkin=' +data.checkin + '&checkout='+data.checkout,
-            method: 'get'
+            url: '/gethotelrooms',
+            method: 'post',
+            data:data
           }).then(function(data) {
             if(data.data.success) {
               $scope.rooms = data.data.data;
@@ -74,6 +81,11 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     $scope.book_room = function(data){
       data.username = $window.localStorage["user"];
+      data.checkin = $scope.currentbooking.checkin;
+      data.checkout = $scope.currentbooking.checkout;
+
+
+
       alert(data.username);
       alert(JSON.stringify(data));
       $http({
