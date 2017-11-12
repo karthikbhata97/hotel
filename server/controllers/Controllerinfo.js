@@ -57,7 +57,7 @@ module.exports.gethotelrooms = function(req,res) {
   // var url_parts = url.parse(req.url, true);
   var hid = req.body.hid;
   var checkin = req.body.checkin.substring(0,10);
-    var checkout = req.body.checkout.substring(0,10);
+  var checkout = req.body.checkout.substring(0,10);
   // console.log(checkin.substring(0,10));
   // var checkout = req.body.checkout
 
@@ -173,7 +173,7 @@ module.exports.bookroom = function(req, res) {
                       console.log(result);
 
                       var checkin = req.body.checkin.substring(0,10);
-                        var checkout = req.body.checkout.substring(0,10);
+                      var checkout = req.body.checkout.substring(0,10);
 
                       connection.query("INSERT INTO hotelbook(hid, userid, rno, pid,checkin,checkout) values(?, ?, ?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid,checkin,checkout], function(err, result) {
                         if(err) {
@@ -199,6 +199,7 @@ module.exports.bookroom = function(req, res) {
 module.exports.bookrest = function(req, res) {
   console.log(req.body);
   console.log("here");
+  var bookdate = req.body.bookdate.substring(0, 10);
   connection.query('SELECT id from login where username= ? AND type= ?', [req.body.username,"user"], function(err, result) {
     if(err) {
       console.log(err);
@@ -209,7 +210,7 @@ module.exports.bookrest = function(req, res) {
     }
     else {
       var userid = result[0].id;
-      connection.query('INSERT INTO payment (amount, userid)  values(?, ?)', [req.body.cost, userid], function(err, result) {
+      connection.query('INSERT INTO payment (amount, userid, bookdate)  values(?, ?, ?)', [req.body.cost, userid, bookdate], function(err, result) {
         if(err) {
           console.log(err);
           res.send({"success": false, message: "Failed to create payment"});
@@ -382,4 +383,63 @@ module.exports.changepassword = function(req, res) {
       }
     }
   });
+};
+
+
+module.exports.cancelfood = function(req, res) {
+  connection.query('DELETE FROM restbook WHERE bid = ?', [req.body.bid], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({success: false, message: "Failed to cancel booking"})
+    }
+    else {
+      connection.query('DELETE FROM payment WHERE pid = ?', [req.body.pid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({success: false, message: "Failed to revoke payment"})
+        }
+        else {
+          connection.query('UPDATE user SET wallet = wallet + ? where userid = ?', [req.body.cost, req.body.userid], function(err, result) {
+            if(err) {
+              console.log(err);
+              res.send({success: false, message: "Failed to refund. Contact admin."})
+            }
+            else {
+              res.send({success: true, message: "Successful."})
+            }
+          })
+        }
+      })
+    }
+  })
+};
+
+
+module.exports.cancelroom = function(req, res) {
+  connection.query('DELETE FROM hotelbook WHERE bid = ?', [req.body.bid], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({success: false, message: "Failed to cancel booking"})
+    }
+    else {
+      console.log(err);
+      connection.query('DELETE FROM payment WHERE pid = ?', [req.body.pid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({success: false, message: "Failed to revoke payment"})
+        }
+        else {
+          connection.query('UPDATE user SET wallet = wallet + ? where userid = ?', [req.body.cost, req.body.userid], function(err, result) {
+            if(err) {
+              console.log(err);
+              res.send({success: false, message: "Failed to refund. Contact admin."})
+            }
+            else {
+              res.send({success: true, message: "Successful."})
+            }
+          })
+        }
+      })
+    }
+  })
 };
