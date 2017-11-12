@@ -141,6 +141,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }).then(function(data) {
             if(data.data.success) {
               alert("food item added successfully");
+              location.reload();
             }
             else {
               alert(data.data.message);
