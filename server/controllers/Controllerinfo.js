@@ -273,7 +273,7 @@ module.exports.userfeed = function(req, res) {
     }
     else {
       var userid = result[0].id;
-      connection.query("SELECT * FROM hotelbook t1 INNER JOIN hotel t2 ON t1.hid = t2.hid INNER JOIN rooms t3 ON t1.rno = t3.rno WHERE t1.userid = ?", [userid], function(err, result) {
+      connection.query("SELECT * FROM hotelbook t1 INNER JOIN hotel t2 ON t1.hid = t2.hid INNER JOIN rooms t3 ON t1.rno = t3.rno AND t1.hid = t3.hid WHERE t1.userid = ?", [userid], function(err, result) {
         if(err) {
           console.log(err);
           res.send([{"success": false, message: "Error in reading hotel booking data"}]);
