@@ -57,7 +57,7 @@ module.exports.gethotelrooms = function(req,res) {
   var hid = url_parts.query.hid;
   var checkin = url_parts.query.checkin;
   var checkout = url_parts.query.checkout;
-  connection.query('SELECT * FROM rooms WHERE rno NOT IN (SELECT rno FROM hotelbook WHERE hid = ? AND (checkin <= ? OR checkout >= ?))',[hid, checkout, checkin],function(err,result){
+  connection.query('SELECT * FROM rooms WHERE rno NOT IN (SELECT rno FROM hotelbook WHERE hid = ? AND (checkin <= ? OR checkout >= ?)) AND hid = ?',[hid, checkout, checkin, hid],function(err,result){
     if(err)
     {
       console.log(err);
