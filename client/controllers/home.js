@@ -5,6 +5,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     $scope.currentbooking = {}
 
+
     // var $scope.user_feed = {}
     var hotel_list = $resource('/gethotels');
     hotel_list.query(function(result){
@@ -64,6 +65,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     $scope.book_restaurant = function(data){
       data.username = $window.localStorage["user"];
+      data.bookdate = new Date();
       alert(data.username);
       alert(JSON.stringify(data));
       $http({
@@ -162,7 +164,13 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
         $scope.cancellationfood = function(item)
         {
+            if(item.bookdate>new Date())
+            {
+                alert("CANNOT CANCEL ORDER");
+                return;
+            }
             alert(JSON.stringify(item));
+
           $http({
             url: '/cancelfood',
             method: 'post',
