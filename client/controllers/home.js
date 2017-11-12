@@ -160,6 +160,43 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }, function(err){});
         }
 
+        $scope.cancellationfood = function(item)
+        {
+            alert(JSON.stringify(item));
+          $http({
+            url: '/cancelfood',
+            method: 'post',
+            data: item
+          }).then(function(data) {
+            if(data.data.success) {
+              alert("ORDER CANCELLED SUCCESSFULLY");
+              window.reload();
+            }
+            else {
+              alert("FAILED TO CANCEL ORDER")
+            }
+          }, function(err){});
+        }
+
+
+        $scope.cancellationroom = function(item)
+        {
+            alert(JSON.stringify(item));
+          $http({
+            url: '/cancelroom',
+            method: 'post',
+            data: item
+          }).then(function(data) {
+            if(data.data.success) {
+              alert("BOOKING CANCELLED SUCCESSFULLY");
+              window.reload();
+            }
+            else {
+              alert(data.data.message);
+            }
+          }, function(err){});
+        }
+
 });
 
 app.controller("adminController", function($scope, $http, $resource, $route) {
