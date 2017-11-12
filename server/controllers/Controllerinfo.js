@@ -7,6 +7,8 @@ var connection = mysql.createConnection({
   database : 'hotel'
 });
 
+
+
 //ADD HOTELS
 module.exports.addhotel = function(req, res) {
   //console.log(req.body);
@@ -331,7 +333,16 @@ module.exports.userfeed = function(req, res) {
             }
             else {
               var rest = result;
-              res.send([{success: true, hotel: hotel, restaurant: rest}]);
+              connection.query("SELECT wallet FROM user WHERE userid = ?", [userid], function(err, result) {
+                if(err){
+                  console.log(err);
+                  res.send([{"success": false, message: "Error in getting wallet amount"}]);
+                }
+                else{
+                  var wallet = result[0].wallet;
+                  res.send([{success: true, hotel: hotel, restaurant: rest, wallet:wallet}]);
+                }
+              });
             }
           })
         }
@@ -530,4 +541,32 @@ module.exports.resttransaction = function(req, res) {
       })
     }
   })
+};
+
+//add money
+module.exports.addmoney = function(req, res) {
+  console.log(req.body);
+
+  connection.query('SELECT id FROM login WHERE username = ? AND type = ?', [req.body.username, "user"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send({success: false, message: "Failed to run query"})
+    }
+    else if (result.length==0) {
+      res.send({success: false, message: "Failed to fetch id"})
+    }
+    else {
+      var userid = result[0].id;
+      connection.query('UPDATE user SET wallet = wallet + ?  where userid = ?', [req.body.amount, userid], function(err, result) {
+        if(err) {
+          console.log(err);
+          res.send({success: false, message: "Failed to add money. Contact admin."})
+        }
+        else {
+          res.send({success: true, message: "Successful."})
+        }
+      })
+    }
+
+});
 };

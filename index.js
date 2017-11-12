@@ -43,6 +43,8 @@ app.get('/hotelfeed',Controllerinfo.hotelfeed);
 app.get('/restaurantfeed',Controllerinfo.restfeed);
 app.get('/hoteltransaction',Controllerinfo.hoteltransaction);
 app.get('/restauranttransaction',Controllerinfo.resttransaction);
+app.post('/addmoney',Controllerinfo.addmoney);
+
 
 
 app.get('/', function(req, res) {
