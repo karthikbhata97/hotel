@@ -60,7 +60,8 @@ module.exports.gethotelrooms = function(req,res) {
     var checkout = new Date(req.body.checkout).toISOString().slice(0,19).replace('T',' ');
   // console.log(checkin.substring(0,10));
   // var checkout = req.body.checkout
-  connection.query('SELECT * FROM rooms WHERE rno NOT IN (SELECT rno FROM hotelbook WHERE hid = ? AND (checkin <= ? OR checkout >= ?)) AND hid = ?',[hid, checkout, checkin, hid],function(err,result){
+
+  connection.query('SELECT * FROM rooms WHERE rno NOT IN (SELECT rno FROM hotelbook WHERE hid = ? AND ((checkin BETWEEN ? AND ?) AND (checkout BETWEEN ? AND ?) OR (checkin < ? AND checkout > ?))) AND hid = ?',[hid, checkin, checkout,checkin, checkout,checkin, checkout, hid],function(err,result){
     if(err)
     {
       console.log(err);

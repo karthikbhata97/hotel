@@ -45,7 +45,9 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
        data.checkout.setTime(data.checkout.getTime() - new Date().getTimezoneOffset()*60*1000);
        alert(JSON.stringify(data));
       $scope.currentbooking = data;
+      if(data.checkout<data.checkin){
 
+      }
       $http({
             url: '/gethotelrooms',
             method: 'post',
@@ -95,7 +97,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       }).then(function(data) {
         if(data.data.success) {
           alert("booked successfully");
-        }
+            $scope.get_rooms($scope.currentbooking);
+                }
         else {
           alert(data.data.message);
         }
