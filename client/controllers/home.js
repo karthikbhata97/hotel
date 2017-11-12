@@ -189,7 +189,17 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
         $scope.cancellationroom = function(item)
         {
-            alert(JSON.stringify(item));
+            // alert(new Date() + new Date(item.checkin) )
+            if(new Date()>new Date(item.checkin))
+            {
+                alert("CANNOT PROCESS CANCELLATION BEYOND CHECK-IN DATE");
+                return;
+            }
+            // else if(new Date()>=new Date(item.checkin)) {
+            //     alert("CANNOT PROCESS CANCELLATION BEYOND CHECKIN DATE");
+            //     return;
+            // }
+            // alert(JSON.stringify(item));
           $http({
             url: '/cancelroom',
             method: 'post',
