@@ -4,11 +4,46 @@
   <a href="#/hotel" style="float:right"><button>BOOK HOTEL</button></a>&nbsp;
   <a href="#/restaurant" style="float:right"><button>BOOK RESTAURANT</button></a>
   <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
+  <style>
+  #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+  }
 
+  #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+  }
+
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+  #customers tr:hover {background-color: #ddd;}
+
+  #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+  }
+  </style>
   <hr>
   <div class="well">
     <h5 style="text-align:center"><strong>USER DASHBOARD</strong></h5>
-    {{user_feed.hotel}}
+<table id="customers">
+  <tr>
+    <th>HOTEL NAME</th>
+    <th>ROOM NO</th>
+    <th>COST</th>
+  </tr>
+  <tr ng-repeat="item in user_hotel_feed">
+    <th>{{item.name}}</th>
+    <th>{{item.rno}}</th>
+    <th>{{item.cost}}</th>
+  </tr>
+</table>
+    {{user_hotel_feed}}
   </div>
 
 </div>
