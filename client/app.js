@@ -38,8 +38,11 @@ app.config(function($routeProvider) {
     templateUrl: '/views/addroom.html',
     controller: 'homeController'
   })
+  .when('/index', {
+    templateUrl: '/views/index.html'
+  })
   .otherwise({
-    redirectTo: '/login'
+    redirectTo: '/index'
   })
 })
 

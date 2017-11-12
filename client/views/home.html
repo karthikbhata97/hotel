@@ -1,10 +1,13 @@
-<div>
+<div class="formarea">
 
   <a href="#/login" style="float:right"><button>LOGOUT</button></a>
   <a href="#/hotel" style="float:right"><button>BOOK HOTEL</button></a>&nbsp;
   <a href="#/restaurant" style="float:right"><button>BOOK RESTAURANT</button></a>
-  <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1>
-
+  <button type="button" style="float:right" data-toggle="modal" data-target="#myModal">ADD MONEY</button>
+<div>
+  <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management </strong></font></h1>
+  <h4 style="text-align:right"><font color="white">WALLET AMOUNT : 20000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></h4>
+</div>
   <hr>
   <div class="well">
     <h4 style="text-align:center"><strong><u>USER DASHBOARD</u></strong></h4>
@@ -57,16 +60,34 @@
     <td>{{item.bookdate | date:'MM-dd-yyyy'}}</td>
     <td><input type="button" value="cancel" ng-click="cancellationfood(item)"></td>
   </tr>
-</table>
-
-
-
-</div>
-    <!-- {{user_hotel_feed}}
-    <hr>
-    {{user_restaurant_feed}} -->
-
-
+    </table>
   </div>
+</div>
+<div class="container">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ADD MONEY</h4>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="addmoney(money)">
+            <label  style="margin-right:3%" >AMOUNT: </label>
+            <input type="number" min="1" max="20000" ng-model="money.amount" placeholder="max 20000" style="width:200px">
+            <input style="margin-left:5%" type="submit" value="ADD" name="submit"/>
+            <br><br>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </div>

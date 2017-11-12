@@ -7,7 +7,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     var my_hotel_transactions = $resource('/hoteltransaction?username='+$window.localStorage["user"]);
     my_hotel_transactions.query(function(result){
-      alert(JSON.stringify(result))
+      // alert(JSON.stringify(result))
       $scope.my_hotel_transactions = result[0].data;
     });
 
@@ -43,9 +43,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     var user_feed = $resource('/userfeed?username='+$window.localStorage["user"]);
     user_feed.query(function(result){
       $scope.user_hotel_feed = result[0].hotel;
-
       $scope.user_restaurant_feed = result[0].restaurant;
-
+      $scope.wallet = result[0].wallet;
     //   alert(JSON.stringify($scope.user_restaurant_feed));
     //    $scope.user_feed.restaurant = result[0].restaurant;
     })
@@ -67,7 +66,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     $scope.get_rooms = function(data) {
       data.checkin.setTime(data.checkin.getTime() - new Date().getTimezoneOffset()*60*1000);
        data.checkout.setTime(data.checkout.getTime() - new Date().getTimezoneOffset()*60*1000);
-       alert(JSON.stringify(data));
+      //  alert(JSON.stringify(data));
       $scope.currentbooking = data;
       if(data.checkout<data.checkin){
 
@@ -89,8 +88,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     $scope.book_restaurant = function(data){
       data.username = $window.localStorage["user"];
       data.bookdate = new Date();
-      alert(data.username);
-      alert(JSON.stringify(data));
+      // alert(data.username);
+      // alert(JSON.stringify(data));
       $http({
         url: '/bookrestaurant',
         method: 'post',
@@ -101,7 +100,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
         }
         else {
 
-          alert(JSON.stringify(data.data));
+          alert(JSON.stringify(data.data.message));
         }
       }, function(err){});
     }
@@ -113,8 +112,8 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
 
 
-      alert(data.username);
-      alert(JSON.stringify(data));
+      // alert(data.username);
+      // alert(JSON.stringify(data));
       $http({
         url: '/bookroom',
         method: 'post',
@@ -153,7 +152,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
             // console.log("here");
           rooms.username = $window.localStorage["user"];
         //   alert(food.username);
-          alert(JSON.stringify(rooms));
+          // alert(JSON.stringify(rooms));
           $http({
             url: '/addhotelrooms',
             method: 'post',
@@ -192,7 +191,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
                 alert("CANNOT CANCEL ORDER");
                 return;
             }
-            alert(JSON.stringify(item));
+            // alert(JSON.stringify(item));
 
           $http({
             url: '/cancelfood',
@@ -233,50 +232,22 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }, function(err){});
         }
 
+        $scope.addmoney = function (money) {
+          money.username = $window.localStorage["user"];
+                    $http({
+                      url: '/addmoney',
+                      method: 'post',
+                      data: money
+                    }).then(function(data) {
+                      if(data.data.success) {
+                        alert("MONEY ADDED SUCCESSFULLY");
+                       location.reload();
+                      }
+                      else {
+                        alert(data.data.message);
+                      }
+                    }, function(err){});
+
+        }
+
 });
-
-app.controller("adminController", function($scope, $http, $resource, $route) {
-  $scope.main = "Home"
-  var hotel_list = $resource('/gethotels');
-  hotel_list.query(function(result){
-    $scope.hotel_feed = result;
-  })
-
-$scope.hoteldata = {};
-$scope.restdata = {};
-  $scope.add_hotel = function(hoteldata) {
-    $http({
-      url: '/addhotel',
-      method: 'post',
-      data: hoteldata
-    }).then(function(data) {
-      if(data.data.success) {
-        alert("success");
-        $scope.newrecord = {}
-      }
-      else {
-        alert(data.data.message)
-      }
-    }, function(err){});
-  }
-
-
-    $scope.add_restaurant = function(restdata) {
-      $http({
-        url: '/addrestaurant',
-        method: 'post',
-        data: restdata
-      }).then(function(data) {
-        if(data.data.success) {
-          alert("success");
-          $scope.newrecord = {}
-        }
-        else {
-          alert("data.data.message")
-        }
-      }, function(err){});
-    }
-
-
-
-})
