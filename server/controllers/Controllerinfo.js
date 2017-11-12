@@ -394,7 +394,7 @@ module.exports.restfeed = function(req, res) {
 };
 
 module.exports.changepassword = function(req, res) {
-  connection.query('SELECT password from login where username = ?', [req.body.username], function(err, result) {
+  connection.query('SELECT password FROM login WHERE username = ?', [req.body.username], function(err, result) {
     if(err) {
       console.log(err);
       res.send({success: false, message: "Failed to run query"})
@@ -474,6 +474,57 @@ module.exports.cancelroom = function(req, res) {
               res.send({success: true, message: "Successful."})
             }
           })
+        }
+      })
+    }
+  })
+};
+
+module.exports.hoteltransaction = function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var username = url_parts.query.username;
+  connection.query('SELECT id FROM login WHERE username = ? AND type = ?', [username, "hotel"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send([{success: false, message: "Failed to run query"}])
+    }
+    else if (result.length==0) {
+      res.send([{success: false, message: "Failed to fetchid"}])
+    }
+    else {
+      var hid = result[0].id;
+      connection.query('SELECT * FROM hotelbook t1 INNER JOIN user t2 ON t1.userid = t2.userid INNER JOIN hotel t3 ON t1.hid = t3.hid WHERE hid = ?', [hid], function(err, result) {
+        if(err) {
+          res.send({success: false, message: "Failed to fetch details"})
+        }
+        else {
+          res.send({success: true, data: result})
+        }
+      })
+    }
+  })
+};
+
+
+module.exports.resttransaction = function(req, res) {
+  var url_parts = url.parse(req.url, true);
+  var username = url_parts.query.username;
+  connection.query('SELECT id FROM login WHERE username = ? AND type = ?', [username, "restaurant"], function(err, result) {
+    if(err) {
+      console.log(err);
+      res.send([{success: false, message: "Failed to run query"}])
+    }
+    else if (result.length==0) {
+      res.send([{success: false, message: "Failed to fetchid"}])
+    }
+    else {
+      var rid = result[0].id;
+      connection.query('SELECT * FROM restbook t1 INNER JOIN user t2 ON t1.userid = t2.userid INNER JOIN restaurant t3 ON t1.rid = t3.rid WHERE rid = ?', [rid], function(err, result) {
+        if(err) {
+          res.send({success: false, message: "Failed to fetch details"})
+        }
+        else {
+          res.send({success: true, data: result})
         }
       })
     }

@@ -41,6 +41,8 @@ app.post('/cancelroom',Controllerinfo.cancelroom);
 app.get('/userfeed',Controllerinfo.userfeed);
 app.get('/hotelfeed',Controllerinfo.hotelfeed);
 app.get('/restaurantfeed',Controllerinfo.restfeed);
+app.get('/hoteltransaction',Controllerinfo.hoteltransaction);
+app.get('/restauranttransaction',Controllerinfo.resttransaction);
 
 
 app.get('/', function(req, res) {
