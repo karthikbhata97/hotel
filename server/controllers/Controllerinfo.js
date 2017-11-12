@@ -83,7 +83,7 @@ module.exports.addhotelrooms = function(req,res) {
     }
     else{
       var hid = result[0].id;
-      connection.query('INSERT  INTO rooms (hid,booked,cost,persons,description) values (?,?,?)',[hid,0,req.body.cost, req.body.persons, req.body.description], function(err,result){
+      connection.query('INSERT  INTO rooms (hid,booked,cost,persons,description) values (?,?,?,?,?)',[hid,0,req.body.cost, req.body.persons, req.body.description], function(err,result){
         if(err)
         {
           console.log(err);

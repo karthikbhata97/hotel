@@ -10,18 +10,34 @@
     <strong>>HOTEL LIST</strong><br>
     <form ng-submit=get_rooms(data)>
 <!-- {{hotel_feed}} -->
-SELECT HOTEL:    <select ng-model="data.hid">
+SELECT HOTEL:    <select ng-model="data.hid" required>
       <option selected disabled>select</option>
       <option ng-repeat="item in hotel_feed" value="{{item.hid}}">{{item.name}}</option>
     </select>
+    &nbsp;
+    &nbsp;
+CHECK-IN:  <input type="date" ng-model="data.checkin" required/>
+
+&nbsp;
+&nbsp;
+CHECK-OUT:  <input type="date" ng-model="data.checkout" required/>
+
+
     <button type="submit">SUBMIT</button>
+
     </form>
     <hr>
 
     <div class="article" ng-repeat="x in rooms">
-      <strong>ROOM NO:</strong>{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <strong>COST:</strong>{{x.cost}}
+      <strong>ROOM NO:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>COST:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.cost}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>PERSON (MAX):</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.persons}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <br>
+      <strong>DESCRIPTION:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.description}}
+
+
       <button style="float:right;" ng-click="book_room(x)">ORDER</button>
+      <hr>
       <!-- {{x}} -->
       <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
       <!-- <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>
