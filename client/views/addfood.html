@@ -1,6 +1,6 @@
 <div>
-  <style>
-  #outPopUp {
+<style>
+#outPopUp {
   position:;
   width: 450px;
   height: 500px;
@@ -10,22 +10,22 @@
   margin: -100px 0 0 -150px;
 
 }
-  </style>
+</style>
 
 
 
-  <a href="#/login" style="float:right"><button>LOGOUT</button></a>
-  <button type="button" style="float:right" data-toggle="modal" data-target="#myModal">CHANGE PASSWORD</button>
-  <h1 style="float: center;margin-left: 325px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
+<a href="#/login" style="float:right"><button>LOGOUT</button></a>
+<button type="button" style="float:right" data-toggle="modal" data-target="#myModal">CHANGE PASSWORD</button>
+<h1 style="float: center;margin-left: 325px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
 
 <div class="well">
-      <div class="topnav">
-        <a href="javascript:void(0)" onclick="openCity('FEED')"><b>FEED</b></a>
-        <a href="javascript:void(0)" onclick="openCity('ADD FOOD')"><b>ADD FOOD</b></a>
-        <a href="javascript:void(0)" onclick="openCity('restauranttransaction')"><b>TRANSACTIONS</b></a>
+  <div class="topnav">
+    <a href="javascript:void(0)" onclick="openCity('FEED')"><b>FEED</b></a>
+    <a href="javascript:void(0)" onclick="openCity('ADD FOOD')"><b>ADD FOOD</b></a>
+    <a href="javascript:void(0)" onclick="openCity('restauranttransaction')"><b>TRANSACTIONS</b></a>
 
-      </div>
-      <br>
+  </div>
+  <br>
   <div id="ADD FOOD" class="w3-container city" style="display:none;">
 
     <div class="well"  style="width:500px;margin-left:30%;">
@@ -55,57 +55,57 @@
         <td><input type="button" value="cancel" ng-click="cancellationfood(item)"></td>
       </tr>
     </table>
-</div>
+  </div>
 
 
-<div id="restauranttransaction" class="w3-container city" style="display:none">
-<table id="customers">
-  <tr>
-    <th>USERNAME</th>
-    <th>FOOD NAME</th>
-    <th>COST</th>
-    <th>ORDER DATE</th>
-  </tr>
-  <tr ng-repeat="item in my_restaurant_transactions">
-    <td>{{item.name}}</td>
-    <td>{{item.foodname}}</td>
-    <td>{{item.cost}}</td>
-    <td>{{item.bookdate || 'MM-dd-yyyy'}}</td>
-  </tr>
-</table>
-</div>
+  <div id="restauranttransaction" class="w3-container city" style="display:none">
+    <table id="customers">
+      <tr>
+        <th>USERNAME</th>
+        <th>FOOD NAME</th>
+        <th>COST</th>
+        <th>ORDER DATE</th>
+      </tr>
+      <tr ng-repeat="item in my_restaurant_transactions">
+        <td>{{item.name}}</td>
+        <td>{{item.foodname}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.bookdate | date:'MM-dd-yyyy'}}</td>
+      </tr>
+    </table>
+  </div>
 
 </div>
 <!-- {{my_restaurant_feed}} -->
 <div class="container">
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content" >
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">CHANGE PASSWORD</h4>
-      </div>
-      <div class="modal-body">
-        <form ng-submit="changepassword(changepass)">
-        <label  style="margin-right:15%">CURRENT_PASSWORD: </label>
-        <input type="password" ng-model="changepass.password">
-        <br><br>
-        <label  style="margin-right:15%">NEW_PASSWORD: </label>
-        <input type="password" ng-model="changepass.newpassword">
-        <br><br>
-        <input type="submit" value="submit" name="submit"/>
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">CHANGE PASSWORD</h4>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="changepassword(changepass)">
+            <label  style="margin-right:15%">CURRENT_PASSWORD: </label>
+            <input type="password" ng-model="changepass.password">
+            <br><br>
+            <label  style="margin-right:15%">NEW_PASSWORD: </label>
+            <input type="password" ng-model="changepass.newpassword">
+            <br><br>
+            <input type="submit" value="submit" name="submit"/>
 
-      </form>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+
     </div>
-
   </div>
-</div>
 </div>
 
 </div>

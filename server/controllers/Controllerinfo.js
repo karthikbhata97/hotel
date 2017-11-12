@@ -373,17 +373,17 @@ module.exports.restfeed = function(req, res) {
   connection.query('SELECT id from login where username = ? AND type = ?', [username, "restaurant"], function(err, result) {
     if(err) {
       console.log(err);
-      res.send({success: false, message: "Failed to run query"})
+      res.send([{success: false, message: "Failed to run query"}])
     }
     else if (result.length==0) {
-      res.send({success: false, message: "Failed to fetch restaurant details"})
+      res.send([{success: false, message: "Failed to fetch restaurant details"}])
     }
     else {
       var rid = result[0].id;
       connection.query('SELECT * FROM food WHERE rid = ?', [rid], function(err, result) {
         if(err) {
           console.log(err);
-          res.send({success: false, message: "Failed to run query"})
+          res.send([{success: false, message: "Failed to run query"}])
         }
         else {
           res.send([{success: true, data: result}]);
@@ -493,12 +493,13 @@ module.exports.hoteltransaction = function(req, res) {
     }
     else {
       var hid = result[0].id;
-      connection.query('SELECT * FROM hotelbook t1 INNER JOIN user t2 ON t1.userid = t2.userid INNER JOIN hotel t3 ON t1.hid = t3.hid WHERE hid = ?', [hid], function(err, result) {
+      connection.query('SELECT * FROM hotelbook t1 INNER JOIN user t2 ON t1.userid = t2.userid INNER JOIN hotel t3 ON t1.hid = t3.hid INNER JOIN payment t4 ON t4.pid = t1.pid WHERE t1.hid = ?', [hid], function(err, result) {
         if(err) {
-          res.send({success: false, message: "Failed to fetch details"})
+          console.log(err);
+          res.send([{success: false, message: "Failed to fetch details"}])
         }
         else {
-          res.send({success: true, data: result})
+          res.send([{success: true, data: result}])
         }
       })
     }
@@ -515,16 +516,16 @@ module.exports.resttransaction = function(req, res) {
       res.send([{success: false, message: "Failed to run query"}])
     }
     else if (result.length==0) {
-      res.send([{success: false, message: "Failed to fetchid"}])
+      res.send([{success: false, message: "Failed to fetch id"}])
     }
     else {
       var rid = result[0].id;
-      connection.query('SELECT * FROM restbook t1 INNER JOIN user t2 ON t1.userid = t2.userid INNER JOIN restaurant t3 ON t1.rid = t3.rid WHERE rid = ?', [rid], function(err, result) {
+      connection.query('SELECT * FROM restbook t1 INNER JOIN user t2 ON t1.userid = t2.userid INNER JOIN restaurant t3 ON t1.rid = t3.rid INNER JOIN payment t4 ON t1.pid = t4.pid WHERE t1.rid = ?', [rid], function(err, result) {
         if(err) {
           res.send({success: false, message: "Failed to fetch details"})
         }
         else {
-          res.send({success: true, data: result})
+          res.send([{success: true, data: result}]);
         }
       })
     }

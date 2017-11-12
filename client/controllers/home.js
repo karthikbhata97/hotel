@@ -5,10 +5,9 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     $scope.currentbooking = {}
 
-
     var my_hotel_transactions = $resource('/hoteltransaction?username='+$window.localStorage["user"]);
     my_hotel_transactions.query(function(result){
-      // alert(JSON.stringify(result))
+      alert(JSON.stringify(result))
       $scope.my_hotel_transactions = result[0].data;
     });
 
