@@ -10,11 +10,21 @@
     <strong>>HOTEL LIST</strong><br>
     <form ng-submit=get_rooms(data)>
 <!-- {{hotel_feed}} -->
-SELECT HOTEL:    <select ng-model="data.hid">
+SELECT HOTEL:    <select ng-model="data.hid" required>
       <option selected disabled>select</option>
       <option ng-repeat="item in hotel_feed" value="{{item.hid}}">{{item.name}}</option>
     </select>
+    &nbsp;
+    &nbsp;
+CHECK-IN:  <input type="date" ng-model="data.checkin" required/>
+
+&nbsp;
+&nbsp;
+CHECK-OUT:  <input type="date" ng-model="data.checkout" required/>
+
+
     <button type="submit">SUBMIT</button>
+
     </form>
     <hr>
 

@@ -38,6 +38,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     }
 
     $scope.get_rooms = function(data) {
+      alert(JSON.stringify(data));
       $http({
             url: '/gethotelrooms?hid='+ data.hid,
             method: 'get'
