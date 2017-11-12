@@ -5,11 +5,25 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
     $scope.currentbooking = {}
 
+
+    var my_hotel_transactions = $resource('/hoteltransaction?username='+$window.localStorage["user"]);
+    my_hotel_transactions.query(function(result){
+      // alert(JSON.stringify(result))
+      $scope.my_hotel_transactions = result[0].data;
+    });
+
+    var my_restaurant_transactions = $resource('/restauranttransaction?username='+$window.localStorage["user"]);
+    my_restaurant_transactions.query(function(result){
+      // alert(JSON.stringify(result))
+      $scope.my_restaurant_transactions = result[0].data;
+    });
+//current status
+
     var my_hotel_feed = $resource('/hotelfeed?username='+$window.localStorage["user"]);
     my_hotel_feed.query(function(result){
       // alert(JSON.stringify(result))
       $scope.my_hotel_feed = result[0].data;
-  });
+    });
 
   var my_restaurant_feed = $resource('/restaurantfeed?username='+$window.localStorage["user"]);
   my_restaurant_feed.query(function(result){
