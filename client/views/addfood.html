@@ -22,6 +22,8 @@
       <div class="topnav">
         <a href="javascript:void(0)" onclick="openCity('FEED')"><b>FEED</b></a>
         <a href="javascript:void(0)" onclick="openCity('ADD FOOD')"><b>ADD FOOD</b></a>
+        <a href="javascript:void(0)" onclick="openCity('restauranttransaction')"><b>TRANSACTIONS</b></a>
+
       </div>
       <br>
   <div id="ADD FOOD" class="w3-container city" style="display:none;">
@@ -54,8 +56,27 @@
       </tr>
     </table>
 </div>
+
+
+<div id="restauranttransaction" class="w3-container city" style="display:none">
+<table id="customers">
+  <tr>
+    <th>USERNAME</th>
+    <th>FOOD NAME</th>
+    <th>COST</th>
+    <th>ORDER DATE</th>
+  </tr>
+  <tr ng-repeat="item in my_restaurant_transactions">
+    <td>{{item.name}}</td>
+    <td>{{item.foodname}}</td>
+    <td>{{item.cost}}</td>
+    <td>{{item.bookdate || 'MM-dd-yyyy'}}</td>
+  </tr>
+</table>
 </div>
-{{my_restaurant_feed}}
+
+</div>
+<!-- {{my_restaurant_feed}} -->
 <div class="container">
 <div class="modal fade" id="myModal" role="dialog">
   <div class="modal-dialog">
