@@ -17,6 +17,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
     var user_feed = $resource('/userfeed?username='+$window.localStorage["user"]);
     user_feed.query(function(result){
       $scope.user_hotel_feed = result[0].hotel;
+
       $scope.user_restaurant_feed = result[0].restaurant;
 
     //   alert(JSON.stringify($scope.user_restaurant_feed));
