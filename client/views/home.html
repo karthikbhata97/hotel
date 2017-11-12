@@ -31,6 +31,12 @@
   <hr>
   <div class="well">
     <h4 style="text-align:center"><strong><u>USER DASHBOARD</u></strong></h4>
+    <div class="w3-bar w3-black">
+      <button class="w3-bar-item w3-button" onclick="openCity('HOTEL')">HOTEL</button>
+      <button class="w3-bar-item w3-button" onclick="openCity('RESTAURANT')">RESTAURANT</button>
+    </div>
+    <br>
+<div id="HOTEL" class="w3-container city">
 <table id="customers">
   <tr>
     <th>HOTEL NAME</th>
@@ -38,7 +44,7 @@
     <th>COST</th>
     <th>CHECK IN</th>
     <th>CHECK OUT</th>
-
+    <th>CANCEL BOOKING</th>
   </tr>
   <tr ng-repeat="item in user_hotel_feed">
     <td>{{item.name}}</td>
@@ -46,10 +52,36 @@
     <td>{{item.cost}}</td>
       <td>{{item.checkin | date:'MM-dd-yyyy'}}</td>
     <td>{{item.checkout| date:'MM-dd-yyyy'}}</td>
+    <td><input type="button" value="cancel" ng-click="cancellationroom(item)"></td>
 
   </tr>
 </table>
+</div>
+<div id="RESTAURANT" class="w3-container city" style="display:none">
+<table id="customers">
+
+  <tr>
+    <th>RESTAURANT NAME</th>
+    <th>FOOD NAME</th>
+    <th>COST</th>
+    <th>CANCEL ORDER</th>
+  </tr>
+  <tr ng-repeat="item in user_restaurant_feed">
+    <td>{{item.name}}</td>
+    <td>{{item.foodname}}</td>
+    <td>{{item.cost}}</td>
+    <td><input type="button" value="cancel" ng-click="cancellationfood(item)"></td>
+  </tr>
+</table>
+
+
+
+</div>
     {{user_hotel_feed}}
+    <hr>
+    {{user_restaurant_feed}}
+
+
   </div>
 
 </div>
