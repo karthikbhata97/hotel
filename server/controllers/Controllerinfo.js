@@ -56,8 +56,8 @@ module.exports.gethotelrooms = function(req,res) {
   console.log(req.body);
   // var url_parts = url.parse(req.url, true);
   var hid = req.body.hid;
-  var checkin = new Date(req.body.checkin).toISOString().slice(0,19).replace('T',' ');
-    var checkout = new Date(req.body.checkout).toISOString().slice(0,19).replace('T',' ');
+  var checkin = req.body.checkin.substring(0,10);
+    var checkout = req.body.checkout.substring(0,10);
   // console.log(checkin.substring(0,10));
   // var checkout = req.body.checkout
 
@@ -172,8 +172,8 @@ module.exports.bookroom = function(req, res) {
                     else {
                       console.log(result);
 
-                      var checkin = new Date(req.body.checkin).toISOString().slice(0,19).replace('T',' ');
-                        var checkout = new Date(req.body.checkout).toISOString().slice(0,19).replace('T',' ');
+                      var checkin = req.body.checkin.substring(0,10);
+                        var checkout = req.body.checkout.substring(0,10);
 
                       connection.query("INSERT INTO hotelbook(hid, userid, rno, pid,checkin,checkout) values(?, ?, ?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid,checkin,checkout], function(err, result) {
                         if(err) {
