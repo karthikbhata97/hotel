@@ -69,7 +69,13 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       //  alert(JSON.stringify(data));
       $scope.currentbooking = data;
       if(data.checkout<data.checkin){
-
+        alert("CHECK OUT DATE LESS THAN CHECK-IN");
+        return;
+      }
+      else if(new Date(data.checkin)<new Date())
+      {
+        alert("INVALID CHECK-IN DATE");
+        return;
       }
       $http({
             url: '/gethotelrooms',
