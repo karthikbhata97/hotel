@@ -36,8 +36,8 @@
     <td>{{item.name}}</td>
     <td>{{item.rno}}</td>
     <td>{{item.cost}}</td>
-      <td>{{item.checkin | date:'MM-dd-yyyy'}}</td>
-    <td>{{item.checkout| date:'MM-dd-yyyy'}}</td>
+      <td>{{item.checkin | date:'dd-MM-yyyy'}}</td>
+    <td>{{item.checkout| date:'dd-MM-yyyy'}}</td>
     <td><input type="button" value="cancel" ng-click="cancellationroom(item)"></td>
 
   </tr>
@@ -57,7 +57,7 @@
     <td>{{item.name}}</td>
     <td>{{item.foodname}}</td>
     <td>{{item.cost}}</td>
-    <td>{{item.bookdate | date:'MM-dd-yyyy'}}</td>
+    <td>{{item.bookdate | date:'dd-MM-yyyy'}}</td>
     <td><input type="button" value="cancel" ng-click="cancellationfood(item)"></td>
   </tr>
     </table>

@@ -26,16 +26,16 @@
     <form ng-submit="signup(data1)">
       <br>
     <label for="username">USERNAME</label>
-    <input type="text" id="username" ng-model="data1.username">
+    <input type="text" id="username" ng-model="data1.username" required>
     <br/>
     <label for="password">PASSWORD</label>
-    <input type="password" id="password" ng-model="data1.password">
+    <input type="password" id="password" ng-model="data1.password" required>
     <br/>
     <label for="username">PHONE NUMBER</label>
-    <input type="text" id="username" ng-model="data1.pno">
+    <input type="text" id="username" pattern="[789][0-9]{9}" ng-model="data1.pno" required>
     <br/>
     <label for="username">NAME</label>
-    <input type="text" id="username" ng-model="data1.name">
+    <input type="text" id="username" ng-model="data1.name" required>
     <br>
     <button type="submit">Sign Up</button><br><br>
     <div style="float: right"<b><span>Already a member?</span></b>
