@@ -1,11 +1,11 @@
 body {
-	background: url("../images/khamar.jpg") no-repeat center center fixed;
-	background-size: cover;
-	font-size: 16px;
-	font-family: 'Lato', sans-serif;
+	background: url("../images/hero-bg.jpg") no-repeat center center fixed;
+	background-size:  cover;
+
+	font-size: 14px;
+	font-family: sans-serif;
 	font-weight: 300;
 	margin: 0;
-	height: 10%;
 
 }
 
@@ -14,7 +14,7 @@ h1#title {
 	font-family: 'Roboto Slab', serif;
 	font-weight: 300;
 	font-size: 3.2em;
-	color: white;
+	color: #666666;
 	text-shadow: 0 0 10px rgba(0,0,0,0.8);
 	margin: 0 auto;
 	padding-top: 180px;
@@ -27,10 +27,7 @@ h1#title {
 h1#title span span {
 	font-weight: bold;
 }
-.formarea{
-	z-index: 2;
-	background: #32384f;
-}
+
 
 
 
@@ -48,7 +45,22 @@ a {
 	color: #008080;
 }
 
-
+.mybutton2{
+	background: #996666;
+	font-weight: 400;
+	width: 180px;
+	border: none;
+	height: 40px;
+	color: white;
+}
+.mybutton3{
+	background: #0066CC;
+	font-weight: 400;
+	width: 100px;
+	border: none;
+	height: 30px;
+	color: white;
+}
 p.small {
 	font-size: 12px;
 	margin: 20px 0 0;
@@ -58,8 +70,13 @@ p.small {
 /* Layout */
 .container {
 	margin-left: 100px;
+	padding: 40px 50px;
 }
-
+#HOTEL, #RESTAURANT{
+	font-size: 12px;
+	background: #996666;
+	background-color: #996666;
+}
 .top {
 	margin: 0;
 	padding: 0;

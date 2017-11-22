@@ -1,3 +1,5 @@
+<h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1>
+
 <div>
   <style>
   #menu {
@@ -14,33 +16,31 @@
   width:30%;
 }
  </style>
- <a href="#/login" style="float:right"><button>LOGOUT</button></a>
- <a href="#/register" style="float:right"><button>REGISTER</button></a>
- <h1 style="text-align:center;margin-left:180px;"><font color="white">HOTEL MANAGEMENT SYSTEM</font></h1>
-<hr>
-
+ <a href="#/login" style="float:right"><button class="mybutton2">LOGOUT</button></a>
+ <a href="#/register" style="float:right"><button class="mybutton2">REGISTER</button></a>
+ <hr><br><br>
 <div id="menu" class="well" style="margin-left:50px">
-    <h4 style="text-align:center"><u>HOTEL REGISTRATION</u></h4>
+    <h4 style="text-align:center">HOTEL REGISTRATION</h4><br>
     <form ng-submit="add_hotel(hoteldata)">
 
-  <div class="left-col">  HOTEL_NAME :</div> <input type="text" ng-model = "hoteldata.name"></input><br><br>
+  <div class="left-col">  HOTEL NAME :</div> <input type="text" ng-model = "hoteldata.name"></input><br><br>
   <div class="left-col">  ROOMS : </div><input type="text" ng-model = "hoteldata.rooms"></input><br><br>
-  <div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "hoteldata.pno" pattern="[789][0-9]{9}" placeholder="ex : 9132456688"></input><br><br>
+  <div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "hoteldata.pno" pattern="[789][0-9]{9}" placeholder=" ex: 9132456688"></input><br><br>
   <div class="left-col">  LANE :</div> <input type="text" ng-model = "hoteldata.lane"></input><br><br>
   <div class="left-col">  CITY :</div> <input type="text" ng-model = "hoteldata.city"></input><br><br>
   <div class="left-col">  PINCODE :</div> <input type="text" ng-model = "hoteldata.pincode" pattern="[0-9]{6}" maxlength="6"></input><br><br>
-  <input type="submit" value="SUBMIT" style="margin-left:40%"></input>
+  <input class="mybutton3" type="submit" value="SUBMIT" style="margin-left:40%"></input>
 </form>
 </div>
-<div id="content" class="well" style="margin-right:100px">
-  <h4 style="text-align:center"><u>RESTAURANT_REGISTRATION</u></h4>
+<div id="content" class="well" style="margin-right:100px; width: 530px">
+  <h4 style="text-align:center">RESTAURANT REGISTRATION</h4><br>
   <form ng-submit="add_restaurant(restdata)">
-<div class="left-col">  RESTAURANT NAME :</div> <input type="text" ng-model = "restdata.name"></input><br><br>
-<div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "restdata.pno" pattern="[789][0-9]{9}" placeholder="ex :9132456688"></input><br><br>
+<div class="left-col">  RESTAURANT NAME: </div> <input type="text" ng-model = "restdata.name"></input><br><br>
+<div class="left-col">  PHONE NO :</div> <input type="text" ng-model = "restdata.pno" pattern="[789][0-9]{9}" placeholder=" ex: 9132456688"></input><br><br>
 <div class="left-col">  LANE :</div> <input type="text" ng-model = "restdata.lane"></input><br><br>
 <div class="left-col">  CITY :</div> <input type="text" ng-model = "restdata.city"></input><br><br>
 <div class="left-col">  PINCODE :</div> <input type="text" ng-model = "restdata.pincode"></input><br><br>
-<input type="submit" value="SUBMIT" style="margin-left:40%"></input>
+<input class="mybutton3" type="submit" value="SUBMIT" style="margin-left:40%"></input>
 </form>
 
 </div>

@@ -1,16 +1,18 @@
-<div >
 
-  <a href="#/login" style="float:right"><button class="mybutton">LOGOUT</button></a>
-  <a href="#/hotel" style="float:right"><button class="mybutton">BOOK HOTEL</button></a>&nbsp;
-  <a href="#/restaurant" style="float:right"><button>BOOK RESTAURANT</button></a>
-  <button type="button" style="float:right" data-toggle="modal" data-target="#myModal">ADD MONEY</button>
-<div>
-  <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management </strong></font></h1>
-  <h4 style="text-align:right"><font color="white">WALLET AMOUNT : {{wallet}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></h4>
+  <h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1>
+    <h4 style="text-align:right"><font color="#666666">WALLET AMOUNT : {{wallet}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></h4>
+  <div>
+
+    <a href="#/login" style="float:right"><button class="mybutton2">LOGOUT</button></a>
+    <a href="#/hotel" style="float:right"><button class="mybutton2">BOOK HOTEL</button></a>&nbsp;
+    <a href="#/restaurant" style="float:right"><button class="mybutton2">BOOK RESTAURANT</button></a>
+    <button class="mybutton2" type="button" style="float:right" data-toggle="modal" data-target="#myModal">ADD MONEY</button>
+  <div>
+
 </div>
   <hr>
-  <div class="well">
-    <h4 style="text-align:center"><strong><u>USER DASHBOARD</u></strong></h4>
+  <div class="well" style="width: 1000px; margin-left: 140px">
+    <h4 style="text-align:center"><strong>USER DASHBOARD</strong></h4>
     <!-- <div class="w3-bar w3-black">
       <button class="w3-bar-item w3-button" onclick="openCity('HOTEL')">HOTEL</button>
       <button class="w3-bar-item w3-button" onclick="openCity('RESTAURANT')">RESTAURANT</button>
@@ -73,11 +75,11 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">ADD MONEY</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="padding-left: 40px;">
           <form ng-submit="addmoney(money)">
-            <label  style="margin-right:3%" >AMOUNT: </label>
-            <input type="number" min="1" max="20000" ng-model="money.amount" placeholder="max 20000" style="width:200px">
-            <input style="margin-left:5%" type="submit" value="ADD" name="submit"/>
+            <label>AMOUNT: </label><br><br>
+            <input type="number" min="1" max="20000" ng-model="money.amount" placeholder="max 20000" style="width:200px; padding: 5px">
+            <input class="mybutton3" type="submit" value="ADD" name="submit"/>
             <br><br>
           </form>
         </div>

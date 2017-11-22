@@ -1,32 +1,32 @@
+<h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1>
+
 <div>
 
-  <a href="#/login" style="float:right"><button>LOGOUT</button></a>
-  <a href="#/home" style="float:right"><button>HOME</button></a>
+  <a href="#/login" style="float:right"><button class="mybutton2">LOGOUT</button></a>
+  <a href="#/home" style="float:right"><button class="mybutton2">HOME</button></a>
+  <br><br><br>
 
-  <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
-  <div class="well">
+  <div class="well" style="width: 600px; float: center; margin-left: 360px; padding: 40px 50px">
 
     <div class="display-area">
-      <strong>>HOTEL LIST</strong><br>
+      <strong>>  HOTEL LIST</strong><br><br><br>
       <form ng-submit=get_rooms(data)>
         <!-- {{hotel_feed}} -->
         SELECT HOTEL:    <select ng-model="data.hid" required>
           <option selected disabled>select</option>
           <option ng-repeat="item in hotel_feed" value="{{item.hid}}">{{item.name}}</option>
         </select>
-        &nbsp;
-        &nbsp;
-        CHECK-IN:  <input type="date" ng-model="data.checkin" required/>
+        <br><br><br>
+        CHECK-IN:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" ng-model="data.checkin" required/>
 
-        &nbsp;
-        &nbsp;
-        CHECK-OUT:  <input type="date" ng-model="data.checkout" required/>
+        <br><br>
+        CHECK-OUT:&nbsp;&nbsp;&nbsp;<input type="date" ng-model="data.checkout" required/>
+        <br><br><br>
 
-
-        <button type="submit">SUBMIT</button>
+        <button class="mybutton3" type="submit">SUBMIT</button>
 
       </form>
-      <hr>
+
 
       <div class="article" ng-repeat="x in rooms">
         <strong>ROOM NO:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

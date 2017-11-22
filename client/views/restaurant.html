@@ -1,20 +1,24 @@
-<div>
-  <a href="#/login" style="float:right"><button>LOGOUT</button></a>
-  <a href="#/home" style="float:right"><button>HOME</button></a>
-  <h1 style="float: center;margin-left: 380px;"><font color="white"><strong>Welcome to Hotel Management</strong></font></h1><hr>
-  <div class="well">
 
-    <div class="display-area">
-    <strong>>FOOD MENU</strong><br>
+<h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1><br>
+<div>
+  <div>
+  <a href="#/login" style="float:right"><button class="mybutton2">LOGOUT</button></a>
+  <a href="#/home" style="float:right"><button class="mybutton2">HOME</button></a>
+</div><br><br><br><br>
+  <div class="well" style="width: 600px; float: center; margin-left: 360px">
+
+    <div class="display-area"><br>
+    <strong>>  FOOD MENU</strong><br><br>
     <form ng-submit=get_menu(data)>
 
 SELECT RESTAURANT:    <select ng-model="data.rid">
       <option selected disabled>select</option>
       <option ng-repeat="item in restaurant_feed" value="{{item.rid}}">{{item.name}}</option>
     </select>
-    <button type="submit">SUBMIT</button>
+    <br><br>
+    <button class="mybutton3" type="submit">SUBMIT</button>
     </form>
-    <hr>
+    <br>
     <div class="article" ng-repeat="x in menu">
       <!-- {{x}} -->
       <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
