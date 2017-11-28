@@ -1,5 +1,6 @@
 var app = angular.module("myApp");
 app.controller("adminController", function($scope, $http, $resource, $route) {
+  $scope.loginname = $window.localStorage["user"];
   $scope.main = "Home"
   var hotel_list = $resource('/gethotels');
   hotel_list.query(function(result){

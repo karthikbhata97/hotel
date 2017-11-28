@@ -2,7 +2,7 @@ var app = angular.module("myApp");
 
 
 app.controller("homeController", function($scope, $http, $resource, $route,$window) {
-
+    $scope.loginname = $window.localStorage["user"].toUpperCase();
     $scope.currentbooking = {}
 
     var my_hotel_transactions = $resource('/hoteltransaction?username='+$window.localStorage["user"]);
@@ -77,6 +77,10 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
         alert("INVALID CHECK-IN DATE");
         return;
       }
+      var oneday = 24*60*60*1000;
+      var noofdays = Math.round(Math.abs((data.checkin.getTime()-data.checkout.getTime())/oneday)) + 1;
+      // alert(noofdays)
+      $scope.quantity = noofdays;
       $http({
             url: '/gethotelrooms',
             method: 'post',
@@ -84,6 +88,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
           }).then(function(data) {
             if(data.data.success) {
               $scope.rooms = data.data.data;
+
             }
             else {
               alert("Failed to fetch details");
@@ -95,7 +100,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       data.username = $window.localStorage["user"];
       data.bookdate = new Date();
       // alert(data.username);
-      // alert(JSON.stringify(data));
+       alert(JSON.stringify(data));
       $http({
         url: '/bookrestaurant',
         method: 'post',
@@ -115,11 +120,12 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       data.username = $window.localStorage["user"];
       data.checkin = $scope.currentbooking.checkin;
       data.checkout = $scope.currentbooking.checkout;
+      data.quantity = $scope.quantity;
 
 
 
       // alert(data.username);
-      // alert(JSON.stringify(data));
+      alert(JSON.stringify(data));
       $http({
         url: '/bookroom',
         method: 'post',

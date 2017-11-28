@@ -1,6 +1,7 @@
 
-  <h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1>
-    <h4 style="text-align:right"><font color="#666666">WALLET AMOUNT : {{wallet}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></h4>
+    <h4 style="text-align:right"><span class="glyphicon glyphicon-user"></span> &nbsp;<font color="#666666">HELLO  {{loginname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+    <font color="#666666">WALLET AMOUNT : {{wallet}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></h4>
+    <h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1>
   <div>
 
     <a href="#/login" style="float:right"><button class="mybutton2">LOGOUT</button></a>
@@ -37,7 +38,7 @@
   <tr ng-repeat="item in user_hotel_feed">
     <td>{{item.name}}</td>
     <td>{{item.rno}}</td>
-    <td>{{item.cost}}</td>
+    <td>{{item.cost * item.quantity}}</td>
       <td>{{item.checkin | date:'dd-MM-yyyy'}}</td>
     <td>{{item.checkout| date:'dd-MM-yyyy'}}</td>
     <td><input type="button" value="cancel" ng-click="cancellationroom(item)"></td>
@@ -58,7 +59,7 @@
   <tr ng-repeat="item in user_restaurant_feed">
     <td>{{item.name}}</td>
     <td>{{item.foodname}}</td>
-    <td>{{item.cost}}</td>
+    <td>{{item.cost * item.quantity}}</td>
     <td>{{item.bookdate | date:'dd-MM-yyyy'}}</td>
     <td><input type="button" value="cancel" ng-click="cancellationfood(item)"></td>
   </tr>
