@@ -25,7 +25,7 @@ module.exports.addhotel = function(req, res) {
 
 //GET ALL HOTELS HAVING ROOMS MORE THAN 0
 module.exports.gethotels = function(req,res) {
-  connection.query('SELECT * FROM hotel WHERE (rooms > 0)',function(err,result){
+  connection.query('SELECT * FROM hotel',function(err,result){
     if(err) {
       console.log(err);
       res.send({success: false});
