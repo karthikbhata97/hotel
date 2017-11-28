@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 //ADD HOTELS
 module.exports.addhotel = function(req, res) {
   //console.log(req.body);
-  connection.query('INSERT  INTO hotel (name,rooms,pno,lane,city,pincode) values (?,?,?,?,?,?)',[req.body.name,req.body.rooms,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
+  connection.query('INSERT  INTO hotel (name,pno,lane,city,pincode) values (?,?,?,?,?)',[req.body.name,req.body.pno,req.body.lane,req.body.city,req.body.pincode], function(err,result){
     if(err) {
       console.log(err);
       res.send({success: false});
@@ -147,62 +147,45 @@ module.exports.bookroom = function(req, res) {
         if(err) {
           res.send({success: false, message: "Failed to fetch wallet data"});
         }
-        else if(req.body.cost > result[0].wallet) {
+        else if(req.body.cost *req.body.quantity > result[0].wallet) {
           res.send({success: false, message: "Insufficient wallet money."});
         }
         else {
-          connection.query('UPDATE user SET wallet = wallet - ? WHERE userid = ?', [req.body.cost, userid], function(err, result){
+          connection.query('UPDATE user SET wallet = wallet - ? WHERE userid = ?', [req.body.cost * req.body.quantity, userid], function(err, result){
             if(err) {
               res.send({success: false, message: "Transaction failed."});
             }
             else {
-              connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost, userid], function(err, result) {
+              connection.query('INSERT INTO payment(amount, userid)  values(?, ?)', [req.body.cost * req.body.quantity, userid], function(err, result) {
                 if(err) {
                   console.log(err);
                   res.send({"success": false});
                 }
                 else {
-                  connection.query('UPDATE rooms SET booked = 1 WHERE rno = ?', [req.body.rno], function(err, result) {
+                  connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [userid], function(err, result) {
                     if(err) {
                       console.log(err);
-                      res.send({"success": false});
+                      res.send({"success": false,"message":"booking failed"});
                     }
-                    else {
-                      connection.query('SELECT MAX(pid) as pid FROM payment where userid = ?', [userid], function(err, result) {
+                    else if(result.length == 0) {
+                      res.send({success: false, message: "Failed to fetch payment data"});
+                    }
+                    else  {
+                      var pid = result[0].pid;
+                      console.log(result);
+
+                      var checkin = req.body.checkin.substring(0,10);
+                      var checkout = req.body.checkout.substring(0,10);
+
+                      connection.query("INSERT INTO hotelbook(hid, userid, rno, pid,checkin,checkout, quantity) values(?, ?, ?, ?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid,checkin,checkout, req.body.quantity], function(err, result) {
                         if(err) {
                           console.log(err);
-                          res.send({"success": false,"message":"booking failed"});
+                          res.send({"success": false});
                         }
-                        else if(result.length == 0) {
-                          res.send({success: false, message: "Failed to fetch payment data"});
+                        else {
+                          res.send({"success": true, book: result});
                         }
-                        else  {
-                          var pid = result[0].pid;
-                          console.log(result);
-                          connection.query('UPDATE rooms set booked = 1 where rno = ?', [req.body.rno], function(err, result) {
-                            if(err) {
-                              console.log(err);
-                              res.send({"success": false,"message":"booking failed"});
-                            }
-                            else {
-                              console.log(result);
-
-                              var checkin = req.body.checkin.substring(0,10);
-                              var checkout = req.body.checkout.substring(0,10);
-
-                              connection.query("INSERT INTO hotelbook(hid, userid, rno, pid,checkin,checkout) values(?, ?, ?, ?, ?, ?)", [req.body.hid, userid, req.body.rno, pid,checkin,checkout], function(err, result) {
-                                if(err) {
-                                  console.log(err);
-                                  res.send({"success": false});
-                                }
-                                else {
-                                  res.send({"success": true, book: result});
-                                }
-                              })
-                            }
-                          });
-                        }
-                      });
+                      })
                     }
                   });
                 }
@@ -234,16 +217,16 @@ module.exports.bookrest = function(req, res) {
         if(err) {
           res.send({success: false, message: "Failed to fetch wallet data"});
         }
-        else if(req.body.cost > result[0].wallet) {
+        else if((req.body.cost * req.body.quantity) > result[0].wallet) {
           res.send({success: false, message: "Insufficient wallet money."});
         }
         else {
-          connection.query('UPDATE user SET wallet = wallet - ? WHERE userid = ?', [req.body.cost, userid], function(err, result){
+          connection.query('UPDATE user SET wallet = wallet - ? WHERE userid = ?', [req.body.cost * req.body.quantity, userid], function(err, result){
             if(err) {
               res.send({success: false, message: "Transaction failed."});
             }
             else {
-              connection.query('INSERT INTO payment (amount, userid)  values(?, ?)', [req.body.cost, userid, bookdate], function(err, result) {
+              connection.query('INSERT INTO payment (amount, userid)  values(?, ?)', [req.body.cost * req.body.quantity, userid, bookdate], function(err, result) {
                 if(err) {
                   console.log(err);
                   res.send({"success": false, message: "Failed to create payment"});
@@ -259,7 +242,7 @@ module.exports.bookrest = function(req, res) {
                     }
                     else {
                       var pid = result[0].pid;
-                      connection.query("INSERT INTO restbook(rid, userid, pid, foodname, bookdate) values(?, ?, ?, ?, ?)", [req.body.rid, userid, pid, req.body.foodname,bookdate], function(err, result) {
+                      connection.query("INSERT INTO restbook(rid, userid, pid, foodname, bookdate, quantity) values(?, ?, ?, ?, ?, ?)", [req.body.rid, userid, pid, req.body.foodname,bookdate, req.body.quantity], function(err, result) {
                         if(err) {
                           console.log(err);
                           res.send({"success": false, message: "Failed to book"});
@@ -568,5 +551,5 @@ module.exports.addmoney = function(req, res) {
       })
     }
 
-});
+  });
 };

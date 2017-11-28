@@ -1,6 +1,6 @@
 create table admin(admin_id int auto_increment , pno varchar(11),email_id varchar(20),password varchar(20), primary key(admin_id));
 
-create table hotel(hid int not null auto_increment, name varchar(20) , rooms integer, pno varchar(11),lane varchar(20),city varchar(20),pincode varchar(20), primary key(hid));
+create table hotel(hid int not null auto_increment, name varchar(20), pno varchar(11),lane varchar(20),city varchar(20),pincode varchar(20), primary key(hid));
 
 create table restaurant(rid int not null auto_increment,name varchar(20) ,pno varchar(11),lane varchar(20),city varchar(20),pincode varchar(20), primary key(rid));
 
@@ -20,6 +20,6 @@ create table login(username varchar(20), password varchar(20), type enum('hotel'
 
 create table rooms(rno int auto_increment, hid int, booked bool, cost integer, persons integer, description varchar(1000), primary key(rno, hid), foreign key(hid) references hotel(hid));
 
-create table hotelbook(bid int auto_increment, hid int, userid int, rno int, pid int, checkin date, checkout date, primary key(bid), foreign key(hid) references hotel(hid), foreign key(userid) references user(userid), foreign key(pid) references payment(pid));
+create table hotelbook(bid int auto_increment, hid int, userid int, rno int, pid int, checkin date, checkout date, quantity int, primary key(bid), foreign key(hid) references hotel(hid), foreign key(userid) references user(userid), foreign key(pid) references payment(pid));
 
-create table restbook(bid int auto_increment, rid int, userid int, pid int, foodname varchar(20), bookdate date, primary key(bid), foreign key(rid) references restaurant(rid), foreign key(userid) references user(userid), foreign key(pid) references payment(pid), foreign key(foodname) references food(foodname));
+create table restbook(bid int auto_increment, rid int, userid int, pid int, foodname varchar(20), bookdate date, quantity int, primary key(bid), foreign key(rid) references restaurant(rid), foreign key(userid) references user(userid), foreign key(pid) references payment(pid), foreign key(foodname) references food(foodname));
