@@ -6,11 +6,6 @@ create table restaurant(rid int not null auto_increment,name varchar(20) ,pno va
 
 create table user(userid int auto_increment, pno varchar(11), wallet int default 0, name varchar(20),primary key(userid));
 
-create table hotelmanagement(admin_id int, hid int,primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(hid) references hotel(hid));
-
-create table restmanagement(admin_id int, rid int,primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(rid) references restaurant(rid));
-
-create table usermanagement(admin_id int, userid int,primary key(admin_id),foreign key(admin_id) references admin(admin_id),foreign key(userid) references user(userid));
 
 create table food(rid int auto_increment, foodname varchar(20), description varchar(100), cost int, primary key(foodname, rid), foreign key(rid) references restaurant(rid));
 

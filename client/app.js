@@ -41,6 +41,11 @@ app.config(function($routeProvider) {
   .when('/index', {
     templateUrl: '/views/index.html'
   })
+  .when('/userlist', {
+    templateUrl: '/views/userlist.html',
+    controller: 'adminController'
+
+  })
   .otherwise({
     redirectTo: '/index'
   })

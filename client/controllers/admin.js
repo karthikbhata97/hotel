@@ -7,6 +7,11 @@ app.controller("adminController", function($scope, $http, $resource, $route , $w
     $scope.hotel_feed = result;
   })
 
+  var user_list = $resource('/getuserlist');
+  user_list.query(function(result){
+    $scope.user_list = result[0].userlist;
+  })
+
 $scope.hoteldata = {};
 $scope.restdata = {};
   $scope.add_hotel = function(hoteldata) {
@@ -17,6 +22,7 @@ $scope.restdata = {};
     }).then(function(data) {
       if(data.data.success) {
         alert("success");
+        location.reload();
         $scope.newrecord = {}
       }
       else {
@@ -34,6 +40,7 @@ $scope.restdata = {};
       }).then(function(data) {
         if(data.data.success) {
           alert("success");
+          location.reload();
           $scope.newrecord = {}
         }
         else {
@@ -41,4 +48,24 @@ $scope.restdata = {};
         }
       }, function(err){});
     }
+
+    $scope.manageuser = function(user) {
+      user.active = 1 - parseInt(user.active);
+      $http({
+        url: '/manageuser',
+        method: 'post',
+        data: user
+      }).then(function(data) {
+        if(data.data.success) {
+          alert("success");
+          location.reload();
+        }
+        else {
+          alert("Failed to Update")
+        }
+      }, function(err){});
+    }
+
+
+
 })

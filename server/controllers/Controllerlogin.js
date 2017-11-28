@@ -14,8 +14,13 @@ module.exports.login = function(req, res) {
       res.send({success: false, message: "INCORRECT USERNAME"})
     }
     else {
-      if(result[0].password == req.body.password){
+      if(result[0].password == req.body.password && result[0].active==1){
         res.send({success: true, message: "correct", type: result[0].type, username: req.body.username})
+      }
+      else if(result[0].active==0)
+      {
+        res.send({success: false, message: "LOGIN HAS BEEN FORBIDDEN BY ADMIN"})
+
       }
       else {
         res.send({success: false, message: "INVALID credentials!"});

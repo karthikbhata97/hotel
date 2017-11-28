@@ -49,7 +49,6 @@
         <th>ROOM NO</th>
         <th>MAX PEOPLE</th>
         <th>COST </th>
-        <th>STATUS</th>
         <th>DESCRIPTION</th>
 
       </tr>
@@ -57,12 +56,11 @@
         <td>{{item.rno}}</td>
         <td>{{item.persons}}</td>
         <td>Rs:{{item.cost}}</td>
-        <td>
+        <!-- <td>
           <div ng-if="item.booked==1">BOOKED</div>
           <div ng-if="item.booked==0">NOT BOOKED</div>
 
-          <!-- <input type="button" value="cancel" ng-click="cancellationfood(item)"> -->
-        </td>
+        </td> -->
         <td><textarea rows="3" cols="50" style="resize:none">{{item.description}}</textarea></td>
       </tr>
     </table>

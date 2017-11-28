@@ -53,6 +53,22 @@ a {
 	height: 40px;
 	color: white;
 }
+.mybutton5{
+	background: #32CD32;
+	font-weight: 400;
+	width: 180px;
+	border: none;
+	height: 40px;
+	/*color: green;*/
+}
+.mybutton6{
+	background: #FF6347;
+	font-weight: 400;
+	width: 180px;
+	border: none;
+	height: 40px;
+	/*color: red;*/
+}
 .mybutton3{
 	background: #0066CC;
 	font-weight: 400;

@@ -8,6 +8,40 @@ var connection = mysql.createConnection({
 });
 
 
+//manage USERS
+
+module.exports.manageuser = function(req, res) {
+
+  connection.query('update login set active = ? where username = ?',[ req.body.active, req.body.username ],function(err,result){
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      console.log(result);
+      res.send({success: true});
+    }
+})
+}
+
+
+
+//user list
+
+module.exports.userlist = function(req, res) {
+
+  connection.query('SELECT username,type,active FROM login where type!="admin"',function(err,result){
+    if(err) {
+      console.log(err);
+      res.send({success: false});
+    }
+    else {
+      console.log(result);
+      res.send([{success: true,userlist:result}]);
+    }
+})
+}
+
 
 //ADD HOTELS
 module.exports.addhotel = function(req, res) {
