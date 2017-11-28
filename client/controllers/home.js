@@ -100,7 +100,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
       data.username = $window.localStorage["user"];
       data.bookdate = new Date();
       // alert(data.username);
-       alert(JSON.stringify(data));
+      // alert(JSON.stringify(data));
       $http({
         url: '/bookrestaurant',
         method: 'post',
@@ -205,7 +205,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
                 return;
             }
             // alert(JSON.stringify(item));
-
+            item.cost = item.cost * item.quantity;
           $http({
             url: '/cancelfood',
             method: 'post',
@@ -229,6 +229,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
                 alert("CANNOT PROCESS CANCELLATION BEYOND CHECK-IN DATE");
                 return;
             }
+            item.cost = item.cost * item.quantity;
 
           $http({
             url: '/cancelroom',
