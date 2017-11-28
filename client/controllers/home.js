@@ -2,7 +2,7 @@ var app = angular.module("myApp");
 
 
 app.controller("homeController", function($scope, $http, $resource, $route,$window) {
-
+    $scope.loginname = $window.localStorage["user"].toUpperCase();
     $scope.currentbooking = {}
 
     var my_hotel_transactions = $resource('/hoteltransaction?username='+$window.localStorage["user"]);
