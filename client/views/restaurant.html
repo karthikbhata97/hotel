@@ -5,7 +5,7 @@
   <a href="#/login" style="float:right"><button class="mybutton2">LOGOUT</button></a>
   <a href="#/home" style="float:right"><button class="mybutton2">HOME</button></a>
 </div><br><br><br><br>
-  <div class="well" style="width: 600px; float: center; margin-left: 360px">
+  <div class="well" style="width: 700px; float: center; margin-left: 360px">
 
     <div class="display-area"><br>
     <strong>>  FOOD MENU</strong><br><br>
@@ -24,7 +24,8 @@ SELECT RESTAURANT:    <select ng-model="data.rid">
       <!-- <p><img width="110px" height="110px" src="images/modi.jpg"></p> -->
       <strong style="font-size: 25px"><u>{{x.foodname}}</u></strong>
       <button style="float:right;" ng-click="book_restaurant(x)">ORDER</button>
-      <h5  style="float:right;margin-right:50px;">COST:{{x.cost}}</h5>
+      <h5  style="float:right;margin-right:50px;">COST:{{x.cost * x.quantity}}</h5>
+      <h5 style="float:right;margin-right:40px;">Quantity:<input type="number" min="1" ng-init="x.quantity=1" ng-model="x.quantity" placeholder="max 20" style="width:75px; padding: 5px;" required></h5>
       <p style="width:500px">{{x.description}}</p>
       <hr>
     </div>

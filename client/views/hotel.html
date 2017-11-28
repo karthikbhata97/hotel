@@ -26,12 +26,13 @@
         <button class="mybutton3" type="submit">SUBMIT</button>
 
       </form>
-
+<hr>
 
       <div class="article" ng-repeat="x in rooms">
         <strong>ROOM NO:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.rno}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <strong>COST:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.cost}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <strong>PERSON (MAX):</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.persons}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <strong>TOTAL_COST:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.cost * quantity}} ({{quantity}} days)
         <br>
         <strong>DESCRIPTION:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{x.description}}
 
