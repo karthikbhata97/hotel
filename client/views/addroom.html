@@ -1,4 +1,4 @@
-
+<h4 style="text-align:right"><span class="glyphicon glyphicon-user"></span> &nbsp;<font color="#666666">HELLO  {{loginname}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font></h4>
 <h1 style="float: center;margin-left: 380px;"><font color="#666666"><strong>HOTEL MANAGEMENT SYSTEM</strong></font></h1><br>
 
 <div class="background">
@@ -20,7 +20,7 @@
 
 
 <hr>
-<div class="well">
+<div class="well" style="margin-left: 20px;margin-right: 20px;">
   <!-- {{my_hotel_feed}} -->
   <div class="topnav">
     <a href="javascript:void(0)" onclick="openCity('HOFEED')"><b>FEED</b></a>
@@ -30,7 +30,7 @@
   </div>
   <br>
   <div id="ADD ROOM" class="w3-container city" style="display:none;">
-    <div class="well" style="width:500px;margin-left:30%;">
+    <div class="well" >
       <h5 style="text-align:center"><strong><u>ROOMS ADDITION</u></strong></h5><hr>
       <form ng-submit="addrooms(rooms)">
         <label style="margin-left:3%">COST : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="cost" ng-model="rooms.cost"><br><br>

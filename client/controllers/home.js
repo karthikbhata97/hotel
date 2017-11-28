@@ -125,7 +125,7 @@ app.controller("homeController", function($scope, $http, $resource, $route,$wind
 
 
       // alert(data.username);
-      alert(JSON.stringify(data));
+    //  alert(JSON.stringify(data));
       $http({
         url: '/bookroom',
         method: 'post',
